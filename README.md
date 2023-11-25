@@ -17,7 +17,8 @@
 * Console   -> Serve para a criação de comandos personalizados que podem ser executados no Artisan.
 * Web       -> Serve para trabalhar com rotas padrões web, carregando páginas no back-end e serviando-as ao client, suportando cookies e sessions.
 
-### Controllers:
+### Controllers
+~~~php
                 ----------> Controller1 
                 |                       {
                 |                           action1()
@@ -32,4 +33,4 @@ Routes ---------|                           action3()
                                             action2()
                                             action3()
                                         }
-
+~~~
