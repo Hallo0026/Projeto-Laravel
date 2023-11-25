@@ -22,16 +22,17 @@
 ~~~php
                 ----------> Controller1 
                 |                       {
-                |                           action1()
-                |                           action2()
-Routes ---------|                           action3()
-                |                        }   
-                |    
-                |                    
-                ----------> Controller2
-                                        {
-                                            action1()
-                                            action2()
+                |                           action1()   
+                |                           action2()   ----------------
+Routes ---------|                           action3()                   |
+                |                       }                               |
+                |                                                       |
+                |                                                       |------------> Views
+                ----------> Controller2                                 |
+                                        {                               |
+                                            action1()                   |
+                                            action2()   -----------------
                                             action3()
                                         }
 ~~~
+
