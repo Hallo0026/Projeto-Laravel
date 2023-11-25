@@ -15,11 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 //Route::get($uri, $callback);
 
-/*
-Route::get('/', function () {
-    return view('welcome');
-});
-*/
+// '?' à direita do parâmetro informa que ele é opcional, para isso também é necessário definir um valor padrão na variável que recebe o parâmetro
 
 // Chamando a rota utilizando controladores
 
@@ -29,3 +25,40 @@ Route::get('/sobre-nos', [\App\Http\Controllers\SobreNosController::class, 'sobr
 
 Route::get('/contato', [\App\Http\Controllers\ContatoController::class, 'contato']);
 
+
+
+/*
+// Rota parametrizada
+Route::get('/contato/{nome}/{categoria}/{assunto}/{mensagem?}',
+function
+    (
+
+        string $nome,
+        string $categoria,
+        string $assunto,
+        string $mensagem = "valor padrão mensagem"
+
+    ) {
+
+    echo "Estamos aqui: "   . $nome       . "<br>";
+    echo "Categoria:    "   . $categoria  . "<br>";
+    echo "Assunto:      "   . $assunto    . "<br>";
+    echo "Mensagem:     "   . $mensagem   . "<br>";
+
+});
+*/
+
+/*
+// Rota parametrizada e utilizando regex
+Route::get('/contato/{nome}/{categoria_id?}',
+
+    function(
+
+        string  $nome = 'Desconhecido',
+        int     $categoria = 1 // 1 = 'Informação'
+
+    ) {
+        echo "Estamos aqui: " . $nome . " - " . $categoria;
+    }
+)->where('nome', '[A-Za-z]+')->where('categoria_id', '[0-9]+');
+*/

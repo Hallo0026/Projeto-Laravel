@@ -8,6 +8,7 @@
 * php artisan down                      -> Coloca a aplicação em manutenção.
 * php artisan up                        -> Retira a aplicação do modo de manutenção.
 * php artisan make:controller {nome}    -> Cria um controlador
+* php artisan route:list                -> Lista todas as rotas da aplicação
 
 ### Rotas:
 
