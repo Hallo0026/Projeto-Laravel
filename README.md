@@ -3,10 +3,11 @@
 - Comando utilizado para inicializar o projeto: composer create-project --prefer-dist laravel/laravel app_super_gestao
 
 ### Artisan:
-* php artisan list    -> Lista todos os comandos do artisan.
-* php artisan serve   -> Inicializa o localhost do laravel.
-* php artisan down    -> Coloca a aplicação em manutenção.
-* php artisan up      -> Retira a aplicação do modo de manutenção.
+* php artisan list                      -> Lista todos os comandos do artisan.
+* php artisan serve                     -> Inicializa o localhost do laravel.
+* php artisan down                      -> Coloca a aplicação em manutenção.
+* php artisan up                        -> Retira a aplicação do modo de manutenção.
+* php artisan make:controller {nome}    -> Cria um controlador
 
 ### Rotas:
 

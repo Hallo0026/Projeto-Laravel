@@ -13,16 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Route::get($uri, $callback);
+
+/*
 Route::get('/', function () {
     return view('welcome');
 });
+*/
 
-Route::get('/about-us', function () {
-    return 'About us';
-});
+// Chamando a rota utilizando controladores
 
-Route::get('/contact', function () {
-    return 'Contact';
-});
+Route::get('/', [\App\Http\Controllers\PrincipalController::class, 'principal']);
 
-//Route::get($uri, $callback);
+Route::get('/sobre-nos', [\App\Http\Controllers\SobreNosController::class, 'sobreNos']);
+
+Route::get('/contato', [\App\Http\Controllers\ContatoController::class, 'contato']);
+
