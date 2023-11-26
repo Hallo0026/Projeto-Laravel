@@ -10,7 +10,15 @@
 
     {{-- @unless executa se o retorno for false --}}
 
-
+    // if(empty($foo)) {} // Retorna true se a variável estiver vazia, ou seja, contém algum desses valores:
+    - ''
+    - 0
+    - 0.0
+    - '0'
+    - null
+    - false
+    - array()
+    - $var
 
 */
 
