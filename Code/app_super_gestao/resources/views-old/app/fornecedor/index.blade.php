@@ -65,10 +65,17 @@
 
     @foreach ($fornecedores as $indice => $fornecedor)
 
+        {{-- @dd($loop) --}}
+
+        <!-- A variável loop está disponível somente no foreach e forelse. -->
+        Iteração atual: {{ $loop -> iteration }}
+
+        <br>
+
         Fornecedor: {{ $fornecedor['nome'] ?? '' }}
         <br>
 
-        Status: {{ $fornecedor['status'] }}
+        Status: @{{ $fornecedor['status'] }}
         <br>
 
         @isset($fornecedor['cnpj'])
@@ -90,7 +97,19 @@
             <br> Fornecedor inativo
         @endunless
 
+        <br>
+
+        @if ($loop->first)
+            Primeira iteração do loop
+        @endif
+
+        @if ($loop->last)
+            Última iteração do loop
+        @endif
+
         <hr>
+
+        Total de registros: {{ $loop -> count }}
 
     @endforeach
 
@@ -108,7 +127,7 @@
 
 @else
 
-        <h3>Ainda não existem fornecedores cadastrados.</h3>
+    <h3>Ainda não existem fornecedores cadastrados.</h3>
 
 @endif
 
