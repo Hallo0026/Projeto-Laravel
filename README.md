@@ -9,6 +9,7 @@
 * php artisan up                        -> Retira a aplicação do modo de manutenção.
 * php artisan make:controller {nome}    -> Cria um controlador
 * php artisan route:list                -> Lista todas as rotas da aplicação
+* php artisan view:clear                -> Limpa as views compiladas no cache
 
 ### Rotas:
 
