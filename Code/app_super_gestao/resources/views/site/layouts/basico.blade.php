@@ -7,6 +7,7 @@
     </head>
 
     <body>
+        @include('site.layouts._partials.topo') <!-- Por padrão procura a pasta views -->
         @yield('conteudo')
     </body>
 </html>

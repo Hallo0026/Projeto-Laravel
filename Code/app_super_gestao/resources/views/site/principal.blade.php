@@ -1,22 +1,7 @@
-@extends('site.layouts.basico') <!-- Por padrão o extends procura a pasta views -->
+@extends('site.layouts.basico') <!-- Por padrão procura a pasta views -->
 
-@section('titulo', 'Home') <!-- param1 -> nome da section; param2 -> parâmetro passando o valor que será recebido no template  -->
+@section('titulo', 'Home') <!-- param1: nome da section; param2: parâmetro passando o valor que será recebido no template  -->
 @section('conteudo')
-
-    <div class="topo">
-
-        <div class="logo">
-            <img src="{{ asset('img/logo.png') }}"> <!-- O helper asset por padrão sempre busca na pasta public -->
-        </div>
-
-        <div class="menu">
-            <ul>
-                <li><a href="{{ route('site.index') }}">Principal</a></li>
-                <li><a href="{{ route('site.sobrenos') }}">Sobre Nós</a></li>
-                <li><a href="{{ route('site.contato') }}">Contato</a></li>
-            </ul>
-        </div>
-    </div>
 
     <div class="conteudo-destaque">
 
