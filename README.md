@@ -12,6 +12,8 @@
 * php artisan view:clear                -> Limpa as views compiladas no cache.
 * php artisan make:model                -> Cria um model, caso ele tenha como objetivo salvar dados no banco, acrescentar o comando '-m' para criar 
                                            uma migration (sempre criar models com o nome no singualar).
+* php artisan migrate                   -> Executa uma migration.
+* php artisan migrate:rollback          -> Reverte as alterações feitas pelas migrações.
 
 ### Rotas:
 
