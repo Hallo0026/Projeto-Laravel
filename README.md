@@ -7,9 +7,11 @@
 * php artisan serve                     -> Inicializa o localhost do laravel.
 * php artisan down                      -> Coloca a aplicação em manutenção.
 * php artisan up                        -> Retira a aplicação do modo de manutenção.
-* php artisan make:controller {nome}    -> Cria um controlador
-* php artisan route:list                -> Lista todas as rotas da aplicação
-* php artisan view:clear                -> Limpa as views compiladas no cache
+* php artisan make:controller {nome}    -> Cria um controlador.
+* php artisan route:list                -> Lista todas as rotas da aplicação.
+* php artisan view:clear                -> Limpa as views compiladas no cache.
+* php artisan make:model                -> Cria um model, caso ele tenha como objetivo salvar dados no banco, acrescentar o comando '-m' para criar 
+                                           uma migration (sempre criar models com o nome no singualar).
 
 ### Rotas:
 
