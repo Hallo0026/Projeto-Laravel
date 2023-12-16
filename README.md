@@ -14,6 +14,10 @@
                                            uma migration (sempre criar models com o nome no singualar).
 * php artisan migrate                   -> Executa uma migration.
 * php artisan migrate:rollback          -> Reverte as alterações feitas pelas migrações.
+* php artisan migrate:status            -> Mostra a situação de todas as migrações executadas.
+* php artisan migrate:reset             -> Executa os métodos Down de todas as migrações executadas.
+* php artisan migrate:refresh           -> Executa os métodos Down de todas as migrações, porém logo em seguida executa o migrate novamente.
+* php artisan migrate:fresh             -> Realiza o Drop de todos os objetos de banco e em seguida executa o método Up de todas as migrações.
 
 ### Rotas:
 
