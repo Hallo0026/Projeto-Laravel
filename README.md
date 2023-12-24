@@ -31,7 +31,7 @@ Migrations
 Tinker
 
 * php artisan tinker                    -> É um um console interativo que permite acessar e manipular as classes do projeto.
-
+* $foo = \App\Models\{Class}::all()     -> Recupera todos os registros associados à determinada classe.
 
 ### Rotas:
 
@@ -60,3 +60,16 @@ Routes ---------|                           action3()                   |
                                         }
 ~~~
 
+
+### Seeders
+
+* São responsáveis por semear o banco de dados da aplicação com os dados iniciais da configuração, ou dados de teste, definindo classes Seeders que conterão as instruções para semear as tabelas no banco de dados, essas classes podem ser chamadas pela classe DatabaseSeeder.
+* php artisan make:seeder {nome}.
+* php artisan db:seed -> executa as seeds.
+* php artisan db:seed --class={nome}. -> executa uma seed em específico
+
+
+### Factories
+
+* Uma factory permite através de um seeder semear em massa uma tabela no banco de dados.
+* php artisan make:factory {nome} --model={nome} -> Cria e define o modelo base para a factory
