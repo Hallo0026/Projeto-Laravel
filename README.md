@@ -18,7 +18,7 @@ Comandos básicos artisan
                                            uma migration (sempre criar models com o nome no singualar).
 
 
-Migrations
+### Migrations
 
 * php artisan migrate                   -> Executa uma migration.
 * php artisan migrate:rollback          -> Reverte as alterações feitas pelas migrações.
@@ -28,7 +28,7 @@ Migrations
 * php artisan migrate:fresh             -> Realiza o Drop de todos os objetos de banco e em seguida executa o método Up de todas as migrações.
 
 
-Tinker
+### Tinker
 
 * php artisan tinker                    -> É um um console interativo que permite acessar e manipular as classes do projeto.
 * $foo = \App\Models\{Class}::all()     -> Recupera todos os registros associados à determinada classe.
