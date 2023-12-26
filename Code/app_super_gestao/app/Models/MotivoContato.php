@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class MotivoContato extends Model
 {
     use HasFactory;
-    protected $fillable = ['motivo_contatos_id'];
+    protected $fillable = ['motivo_contato'];
 }
