@@ -16,6 +16,6 @@ class SiteContato extends Model
     use HasFactory;
 
     protected $table = 'site_contatos'; // Definindo o nome da tabela manualmente.
-    protected $fillable = ['nome', 'telefone', 'email', 'motivo_contato', 'mensagem'];
+    protected $fillable = ['nome', 'telefone', 'email', 'motivo_contatos_id', 'mensagem'];
 
 }

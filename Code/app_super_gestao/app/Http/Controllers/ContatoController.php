@@ -48,14 +48,16 @@ class ContatoController extends Controller
         // Realizando a validação dos dados recebidos no request
         // O validate espera como primeiro parâmetro um array associativo, onde cada chave deve ser o name dos inputs a serem validados
         $request->validate([
-            'nome'              => 'required|min:3|max:50',
-            'telefone'          => 'required',
-            'email'             => 'required|email',
-            'motivo_contato'    => 'required',
-            'mensagem'          => 'required|max:2000',
+            'nome'                  => 'required|min:3|max:50',
+            'telefone'              => 'required',
+            'email'                 => 'required|email',
+            'motivo_contatos_id'    => 'required',
+            'mensagem'              => 'required|max:2000',
         ]);
 
-        //SiteContato::create($request->all());
+        SiteContato::create($request->all());
+        return redirect()->route('site.index');
+
     }
 
 }
