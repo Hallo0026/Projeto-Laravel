@@ -58,7 +58,10 @@ class ContatoController extends Controller
             'mensagem'          => 'required|max:2000',
         ]);
 
-        //SiteContato::create($request->all());
+        SiteContato::create($request->all());
+
+        return redirect()->route('site.index');
+
     }
 
 }
