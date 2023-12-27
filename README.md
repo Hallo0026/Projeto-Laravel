@@ -73,3 +73,17 @@ Routes ---------|                           action3()                   |
 
 * Uma factory permite através de um seeder semear em massa uma tabela no banco de dados.
 * php artisan make:factory {nome} --model={nome} -> Cria e define o modelo base para a factory
+
+
+### Middlewares
+
+* São camadas de software implementadas entre aplicações distintas, funcionando como um intermediador de comunicação.
+* Foram criados como uma forma de ligação entre sistemas novos e legados, pois permite isolar as aplicações e possibilitando focar nas novas aplicações sem se preocupar com detalhes técnicos dos sistemas legados.
+* No contexto web, atuam como um interceptador de requisições feitas por HTTP e também na resposta dessas requisições.
+* A idéia de um Middleware é capturar a requisição antes que ela seja enviada ao núcleo da aplicação, permitindo que inúmeras ações sejam tomadas nesse momento, como por exemplo:
+    - Verificar se o usuário está autenticado 
+    - verificar o nível de permissão do usuário e permitir o acesso de rotas autorizadas.
+    - Coletar o endereço de IP do usuário e caso necessário bloquear o acesso.
+    - Registrar os acessos realizados as rotas, podendo registrar o nome do usuário que realizou o acesso, o horário, IP do origem, navegador utilizado, etc.
+    - Verificar se o usuário aceitou os termos de uso da aplicação para liberar o acesso ao mesmo.
+* Para criar um middleware basta utilizar o comando: php artisan make:middleware {nome}
