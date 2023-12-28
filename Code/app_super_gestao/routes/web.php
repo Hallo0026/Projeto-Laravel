@@ -42,6 +42,7 @@ Route::middleware('autenticacao:padrao,visitante')->prefix('/app')->group(functi
     Route::get('/sair', [\App\Http\Controllers\LoginController::class, 'sair'])-> name('app.sair');
     Route::get('/cliente', [\App\Http\Controllers\ClienteController::class, 'index'])-> name('app.cliente');
 
+    // Rotas fornecedores
     Route::get('/fornecedor', [\App\Http\Controllers\FornecedorController::class, 'index'])-> name('app.fornecedor');
     Route::get('/fornecedor/listar', [\App\Http\Controllers\FornecedorController::class, 'listar'])-> name('app.fornecedor.listar');
     Route::post('/fornecedor/listar', [\App\Http\Controllers\FornecedorController::class, 'listar'])-> name('app.fornecedor.listar');
@@ -50,7 +51,19 @@ Route::middleware('autenticacao:padrao,visitante')->prefix('/app')->group(functi
     Route::get('/fornecedor/editar/{id}/{msg?}', [\App\Http\Controllers\FornecedorController::class, 'editar'])-> name('app.fornecedor.editar');
     Route::get('/fornecedor/excluir/{id}', [\App\Http\Controllers\FornecedorController::class, 'excluir'])-> name('app.fornecedor.excluir');
 
-    Route::get('/produto', [\App\Http\Controllers\ProdutoController::class, 'index'])-> name('app.produto');
+    // Rotas produtos
+    Route::resource('produto', \App\Http\Controllers\ProdutoController::class)->names([
+        'index'     => 'produto.index',
+        'create'    => 'produto.create',
+        'store'     => 'produto.store',
+        'show'      => 'produto.show',
+        'edit'      => 'produto.edit',
+        'update'    => 'produto.update',
+        'destroy'   => 'produto.destroy',
+    ]);
+
+    /*Route::get('/produto', [\App\Http\Controllers\ProdutoController::class, 'index'])-> name('app.produto');
+    Route::get('/produto/create', [\App\Http\Controllers\ProdutoController::class, 'create'])-> name('app.produto.create');*/
 
 });
 
