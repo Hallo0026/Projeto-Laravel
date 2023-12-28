@@ -18,6 +18,7 @@
         </div>
 
         <div class="informacao-pagina">
+            {{ $msg ?? '' }}
             <div style="width: 30%; margin: 0 auto;">
                 <form action="{{ route('app.fornecedor.listar') }}" method="POST">
                     @csrf

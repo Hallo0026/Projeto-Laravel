@@ -83,4 +83,19 @@ class FornecedorController extends Controller
         return view('app.fornecedor.adicionar', ['fornecedor' => $fornecedor, 'msg' => $msg]);
 
     }
+
+
+    public function excluir($id) {
+
+        $msg = '';
+
+        if(Fornecedor::find($id)->delete()) {
+            $msg = 'Registro deletado com sucesso';
+        } else {
+            $msg = 'Erro ao deletar registro';
+        }
+
+        return redirect()->route('app.fornecedor', ['msg' => $msg]);
+
+    }
 }
