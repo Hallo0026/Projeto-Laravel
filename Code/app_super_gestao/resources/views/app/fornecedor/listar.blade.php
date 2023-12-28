@@ -4,6 +4,8 @@
 
 @section('conteudo')
 
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+
     <div class="conteudo-pagina">
 
         <div class="titulo-pagina-2">
@@ -44,6 +46,30 @@
                     </tbody>
 
                 </table>
+
+                <div style="position: absolute;bottom: 2%;width: inherit;text-align: center;">
+                    
+                    {{ $fornecedores->appends($request)->links() }}
+
+                    <!--
+                    {{ $fornecedores->count() }} - Total de registros por página
+                    <br>
+
+                    {{ $fornecedores->total() }} - Total de registros da consulta
+                    <br>
+
+                    {{ $fornecedores->firstItem() }} - Número do primeiro registro da página
+                    <br>
+
+                    {{ $fornecedores->lastItem() }} - Número do último registro da página
+                    <br>
+
+                    {{ $fornecedores->count() }} - Total de registros por página
+                    <br>
+                    -->
+
+                </div>
+
             </div>
         </div>
 
