@@ -101,6 +101,8 @@ Routes ---------|                           action3()                   |
 
 * PUT: O método PUT substitui todas as atuais representações do recurso de destino pela carga de dados da requisição.
 
+* PATCH: O método PATCH é utilizado para aplicar modificações parciais em um recurso.
+
 * DELETE: O método DELETE remove um recurso específico.
 
 * CONNECT: O método CONNECT estabelece um túnel para o servidor identificado pelo recurso de destino.
@@ -109,5 +111,4 @@ Routes ---------|                           action3()                   |
 
 * TRACE: O método TRACE executa um teste de chamada loop-back junto com o caminho para o recurso de destino.
 
-* PATCH: O método PATCH é utilizado para aplicar modificações parciais em um recurso.
 
