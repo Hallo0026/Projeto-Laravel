@@ -62,8 +62,16 @@ Route::middleware('autenticacao:padrao,visitante')->prefix('/app')->group(functi
         'destroy'   => 'produto.destroy',
     ]);
 
-    /*Route::get('/produto', [\App\Http\Controllers\ProdutoController::class, 'index'])-> name('app.produto');
-    Route::get('/produto/create', [\App\Http\Controllers\ProdutoController::class, 'create'])-> name('app.produto.create');*/
+    // Produtos detalhes
+    Route::resource('produto-detalhe', \App\Http\Controllers\ProdutoDetalheController::class)->names([
+        'index'     => 'produto-detalhe.index',
+        'create'    => 'produto-detalhe.create',
+        'store'     => 'produto-detalhe.store',
+        'show'      => 'produto-detalhe.show',
+        'edit'      => 'produto-detalhe.edit',
+        'update'    => 'produto-detalhe.update',
+        'destroy'   => 'produto-detalhe.destroy',
+    ]);
 
 });
 
