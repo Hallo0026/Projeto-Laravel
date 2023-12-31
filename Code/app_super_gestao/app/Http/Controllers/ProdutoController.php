@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Produto;
 use App\Models\ProdutoDetalhe;
+use App\Models\Item;
 use Illuminate\Http\Request;
 use App\Models\Unidade;
 
@@ -14,7 +15,7 @@ class ProdutoController extends Controller
      */
     public function index(Request $request)
     {
-        $produtos = Produto::paginate(6);
+        $produtos = Item::paginate(6);
 
         /*foreach($produtos as $key => $produto) {
 
