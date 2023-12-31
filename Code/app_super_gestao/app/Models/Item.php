@@ -13,7 +13,7 @@ class Item extends Model
     protected $fillable = ['nome', 'descricao', 'peso', 'unidade_id'];
 
     // Verificando se há um registro relacionado em produto_detalhes com base na foreign key
-    public function produtoDetalhe() {
+    public function itemDetalhe() {
         return $this->hasOne('App\Models\itemDetalhe', 'produto_id', 'id'); // '{model}', '{coluna}', '{fk}'
     }
 }

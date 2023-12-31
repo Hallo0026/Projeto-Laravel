@@ -15,7 +15,8 @@ class ProdutoController extends Controller
      */
     public function index(Request $request)
     {
-        $produtos = Item::paginate(6);
+        $produtos = Item::with(['itemDetalhe'])->paginate(6);
+        // with para acionar o eager loading.
 
         /*foreach($produtos as $key => $produto) {
 
