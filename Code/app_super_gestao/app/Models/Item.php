@@ -16,4 +16,9 @@ class Item extends Model
     public function itemDetalhe() {
         return $this->hasOne('App\Models\itemDetalhe', 'produto_id', 'id'); // '{model}', '{coluna}', '{fk}'
     }
+
+    public function fornecedor() {
+        return $this->belongsTo('App\Models\Fornecedor');
+    }
+
 }

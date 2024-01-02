@@ -19,7 +19,7 @@ return new class extends Migration
             $fornecedor_id = DB::table('fornecedores')->insertGetId([
                 'nome'      => 'Fornecedor Padrão SG',
                 'site'      => 'fornecedorpadraosg.com.br',
-                'uf'        => 'pr',
+                'uf'        => 'PR',
                 'email'     => 'contato@fornecedorpadraosg.com.br'
             ]);
 
