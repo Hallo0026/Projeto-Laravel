@@ -27,6 +27,7 @@
                         <tr>
                             <th>ID Pedido</th>
                             <th>Cliente</th>
+                            <th></th>
                         </tr>
                     </thead>
 
@@ -36,6 +37,7 @@
 
                                 <td>{{ $pedido->id }}</td>
                                 <td>{{ $pedido->cliente_id }}</td>
+                                <td><a href="{{ route('pedido-produto.create', ['pedido' => $pedido->id]) }}">Adicionar Produtos</a></td>
 
                                 <td><a href="{{ route('pedido.show', ['pedido' => $pedido->id]) }}">Visualizar</a></td>
                                 <td>
@@ -56,6 +58,10 @@
 
                     {{ $pedidos->appends($request)->links() }}
 
+                    {{ $pedidos->count() }}
+                    {{ $pedidos->total() }}
+                    {{ $pedidos->firstItem() }}
+                    {{ $pedidos->lastItem() }}
 
                 </div>
 
