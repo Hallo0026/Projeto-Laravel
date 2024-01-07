@@ -25,7 +25,7 @@
 
                     <thead>
                         <tr>
-                            <th>Id Pedido</th>
+                            <th>ID Pedido</th>
                             <th>Cliente</th>
                         </tr>
                     </thead>
@@ -54,7 +54,7 @@
 
                 <div style="position: absolute;bottom: 2%;width: inherit;text-align: center;">
 
-                    {{ $pedidos->appends($request)->links()* }}
+                    {{ $pedidos->appends($request)->links() }}
 
 
                 </div>
