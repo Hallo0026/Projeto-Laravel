@@ -98,3 +98,6 @@
 - TRACE: O método TRACE executa um teste de chamada loop-back junto com o caminho para o recurso de destino.
 
 
+### Artisan UI
+
+- php artisan ui {framework} --auth  -> Inicializa o Laravel UI utilizando o framework definido, como Bootstrap, React ou Vue e também cria os métodos de autenticação
