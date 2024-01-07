@@ -10,7 +10,7 @@ class Item extends Model
     use HasFactory;
 
     protected $table = 'produtos';
-    protected $fillable = ['nome', 'descricao', 'peso', 'unidade_id'];
+    protected $fillable = ['nome', 'descricao', 'peso', 'unidade_id', 'fornecedor_id'];
 
     // Verificando se há um registro relacionado em produto_detalhes com base na foreign key
     public function itemDetalhe() {

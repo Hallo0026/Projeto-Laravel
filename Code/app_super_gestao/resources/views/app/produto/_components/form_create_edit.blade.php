@@ -12,7 +12,7 @@
             <option value="">-- Selecione um Fornecedor --</option>
 
             @foreach($fornecedores as $fornecedor)
-                <option value="{{ $fornecedor->id }}" {{ ($produto->fornecedor_id ?? old('fornecedor_id')) == $unidade->id ? 'selected' : '' }} >{{ $fornecedor->nome }}</option>
+                <option value="{{ $fornecedor->id }}" {{ ($produto->fornecedor_id ?? old('fornecedor_id')) == $fornecedor->id ? 'selected' : '' }} >{{ $fornecedor->nome }}</option>
             @endforeach
 
         </select>
