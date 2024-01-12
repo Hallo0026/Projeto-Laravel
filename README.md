@@ -101,3 +101,7 @@
 ### Artisan UI
 
 - php artisan ui {framework} --auth  -> Inicializa o Laravel UI utilizando o framework definido, como Bootstrap, React ou Vue e também cria os métodos de autenticação
+
+### Artisan Mail
+
+- php artisan make:mail {nome_classe} --markdown {view_associada_a_classe}
