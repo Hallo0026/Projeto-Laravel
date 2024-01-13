@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Mail;
 use App\Mail\MensagemTesteMail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -26,4 +27,7 @@ Route::resource('tarefa', 'App\Http\Controllers\TarefaController')->middleware('
 
 Route::get('/mensagem-teste', function() {
     return new MensagemTesteMail();
+    //Mail::to('vinicius_santossouza@outlook.com')->send(new MensagemTesteMail());
+    //return 'E-mail enviado com sucesso!';
 });
+
