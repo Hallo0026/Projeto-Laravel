@@ -25,7 +25,7 @@
                           <input type="date" class="form-control" name="data_limite_conclusao">
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Cadastrar</button>
 
                     </form>
 

@@ -2,6 +2,7 @@
 
     .table th, .table td {
         padding: .7rem !important;
+        vertical-align: middle !important;
     }
 
 </style>
@@ -15,7 +16,7 @@
             <div class="card">
 
                 <div class="card-header" style="font-size: 1.4rem; font-weight: 700;">
-                    Tarefas
+                    Tarefas <a href="{{ route('tarefa.create') }}" class="float-right">Nova Tarefa</a>
                 </div>
 
                 <div class="card-body">
