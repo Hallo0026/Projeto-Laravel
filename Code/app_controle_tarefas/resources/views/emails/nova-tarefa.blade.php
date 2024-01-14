@@ -8,7 +8,7 @@ Data limite de conclusão: {{ $data_limite_conclusao }}
 Clique aqui para visualizar a tarefa
 @endcomponent
 
-Atenciosamente,
+Atenciosamente,<br>
 {{ config('app.name') }}
 
 @endcomponent
