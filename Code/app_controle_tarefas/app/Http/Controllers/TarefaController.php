@@ -36,7 +36,7 @@ class TarefaController extends Controller
      */
     public function create()
     {
-        //
+        return view('tarefa.create');
     }
 
     /**
@@ -47,7 +47,24 @@ class TarefaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $regras = [
+            'tarefa' => 'required|max:200',
+            'data_limite_conclusao' => 'required|date'
+        ];
+
+        $feedback = [
+            'required' => 'O campo :attribute deve ser preenchido',
+            'tarefa.max' => 'O campo tarefa deve ter no máximo 200 caracteres',
+            'data_limite_conclusao.date' => 'O campo data limite de conclusão deve ser uma data válida'
+        ];
+
+        $request->validate($regras, $feedback);
+
+        $tarefa = Tarefa::create($request->all());
+
+        return redirect()->route('tarefa.show', ['tarefa' => $tarefa->id]);
+
     }
 
     /**
@@ -58,7 +75,7 @@ class TarefaController extends Controller
      */
     public function show(Tarefa $tarefa)
     {
-        //
+        dd($tarefa->getAttributes());
     }
 
     /**
