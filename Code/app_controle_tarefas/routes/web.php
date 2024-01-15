@@ -18,6 +18,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
     ->middleware('verified');
 */
 
+Route::get('tarefa/exportar', 'App\Http\Controllers\TarefaController@exportar')->middleware('auth')->name('tarefa.exportar');
 Route::resource('tarefa', 'App\Http\Controllers\TarefaController')->middleware('auth');
 
 Route::get('/mensagem-teste', function() {

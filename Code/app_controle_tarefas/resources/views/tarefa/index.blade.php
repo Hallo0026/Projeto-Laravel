@@ -16,7 +16,17 @@
             <div class="card">
 
                 <div class="card-header" style="font-size: 1.4rem; font-weight: 700;">
-                    Tarefas <a href="{{ route('tarefa.create') }}" class="float-right">Nova Tarefa</a>
+                    <div class="row">
+                        <div class="col 6">
+                            Tarefas
+                        </div>
+                        <div class="col-6">
+                            <div class="float-right">
+                                <a href="{{ route('tarefa.exportar') }}" class="mr-4">XSLX</a>
+                                <a href="{{ route('tarefa.create') }}">Nova Tarefa</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="card-body">
