@@ -30,6 +30,7 @@ class TarefaController extends Controller
         return view('tarefa.index', ['tarefas' => $tarefas]);
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -39,6 +40,7 @@ class TarefaController extends Controller
     {
         return view('tarefa.create');
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -73,6 +75,7 @@ class TarefaController extends Controller
 
     }
 
+
     /**
      * Display the specified resource.
      *
@@ -103,6 +106,7 @@ class TarefaController extends Controller
         }
 
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -139,6 +143,7 @@ class TarefaController extends Controller
 
     }
 
+
     /**
      * Remove the specified resource from storage.
      *
@@ -159,8 +164,15 @@ class TarefaController extends Controller
     }
 
 
-    public function exportar() {
-        return Excel::download(new TarefasExport, 'tarefas.xlsx');
+    public function exportar($extensao) {
+
+        if(in_array($extensao, ['xlsx', 'csv', 'pdf'])){
+            $nome_arquivo = 'tarefas.' . $extensao;
+        } else {
+            return redirect()->route('tarefa.index');
+        }
+
+        return Excel::download(new TarefasExport, $nome_arquivo);
     }
 
 }

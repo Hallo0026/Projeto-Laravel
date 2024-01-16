@@ -17,12 +17,14 @@
 
                 <div class="card-header" style="font-size: 1.4rem; font-weight: 700;">
                     <div class="row">
-                        <div class="col 6">
+                        <div class="col-3">
                             Tarefas
                         </div>
-                        <div class="col-6">
+                        <div class="col-9">
                             <div class="float-right">
-                                <a href="{{ route('tarefa.exportar') }}" class="mr-4">XSLX</a>
+                                <a href="{{ route('tarefa.exportar', ['extensao' => 'pdf']) }}" class="mr-4">PDF</a>
+                                <a href="{{ route('tarefa.exportar', ['extensao' => 'csv']) }}" class="mr-4">CSV</a>
+                                <a href="{{ route('tarefa.exportar', ['extensao' => 'xlsx']) }}" class="mr-4">XLSX</a>
                                 <a href="{{ route('tarefa.create') }}">Nova Tarefa</a>
                             </div>
                         </div>
