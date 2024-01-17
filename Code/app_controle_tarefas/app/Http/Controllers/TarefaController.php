@@ -86,6 +86,7 @@ class TarefaController extends Controller
     {
         return view('tarefa.show', ['tarefa' => $tarefa]);
     }
+    
 
     /**
      * Show the form for editing the specified resource.
