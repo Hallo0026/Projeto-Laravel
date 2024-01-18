@@ -19,6 +19,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
 */
 
 Route::get('tarefa/exportar/{extensao}', 'App\Http\Controllers\TarefaController@exportar')->middleware('auth')->name('tarefa.exportar');
+Route::get('tarefa/exportar-pdf', 'App\Http\Controllers\TarefaController@exportarPDF')->middleware('auth')->name('tarefa.exportar.pdf');
 Route::resource('tarefa', 'App\Http\Controllers\TarefaController')->middleware('auth');
 
 Route::get('/mensagem-teste', function() {

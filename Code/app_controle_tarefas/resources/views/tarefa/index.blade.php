@@ -23,6 +23,7 @@
                         <div class="col-9">
                             <div class="float-right">
                                 <a href="{{ route('tarefa.exportar', ['extensao' => 'pdf']) }}" class="mr-4">PDF</a>
+                                <a href="{{ route('tarefa.exportar.pdf') }}" target="_blank" class="mr-4">PDF V2</a>
                                 <a href="{{ route('tarefa.exportar', ['extensao' => 'csv']) }}" class="mr-4">CSV</a>
                                 <a href="{{ route('tarefa.exportar', ['extensao' => 'xlsx']) }}" class="mr-4">XLSX</a>
                                 <a href="{{ route('tarefa.create') }}">Nova Tarefa</a>

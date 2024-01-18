@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\NovaTarefaMail;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\TarefasExport;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class TarefaController extends Controller
 {
@@ -86,7 +87,7 @@ class TarefaController extends Controller
     {
         return view('tarefa.show', ['tarefa' => $tarefa]);
     }
-    
+
 
     /**
      * Show the form for editing the specified resource.
@@ -174,6 +175,23 @@ class TarefaController extends Controller
         }
 
         return Excel::download(new TarefasExport, $nome_arquivo);
+    }
+
+
+    public function exportarPDF() {
+
+        $tarefas = Tarefa::where('user_id', auth()->user()->id)
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+
+        $pdf = Pdf::loadView('tarefa.pdf', ['tarefas' => $tarefas]);
+        // Tipo de papel: a4, letter, etc
+        // Orientação: portrait, landscape
+        $pdf->setPaper('a4', 'portrait');
+
+        //return $pdf->download('lista_de_tarefas.pdf');
+        return $pdf->stream('lista_de_tarefas.pdf');
+
     }
 
 }
