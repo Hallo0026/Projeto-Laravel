@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="./vue/vue.js"></script>
+	<title>Document</title>
+</head>
+<body>
+
+	<div id="app">
+		<h1>Mensagem: {{ mensagem }}</h1>
+		<h2>Valor total: {{ valorTotal }}</h2>
+		<h3>Logado: {{ logado }}</h3>
+		<h3>Pessoas: {{ pessoas }}</h3>
+		<h3>Perfil: {{ perfil }}</h3>
+		<h3>Nome: {{ perfil.nome }}</h3>
+		<h3>Idade: {{ perfil.idade }}</h3>
+		<h3>Peso: {{ perfil.peso }}</h3>
+		<h3>Cursos: {{ perfil.cursos }}</h3>
+		<h3>{{ perfil.cursos[0] }}</h3>
+		<h3>{{ perfil.cursos[0].nome }}</h3>
+		<h3>{{ perfil.cursos[0].cargaHoraria }}</h3>
+		<h3>{{ perfil.cursos[1].nome }}</h3>
+		<h3>{{ perfil.cursos[1].cargaHoraria }}</h3>
+		<h3>{{ perfil.cursos[2].nome }}</h3>
+		<h3>{{ perfil.cursos[2].cargaHoraria }}</h3>
+	</div>
+
+	<script>
+		options = {
+			el: '#app',
+			
+			// Variáveis/atributos reativos
+			data: { 
+				mensagem: 'Olá Vue!', // string
+				valorTotal: 127.23, // number
+				logado: false, // boolean
+				pessoas: ['João', 'Maria', 'José'], // array
+				perfil: {
+					nome: 'João',
+					idade: 20,
+					peso: 70.5,
+					cursos: [
+						{nome: 'PHP', cargaHoraria: 20},
+						{nome: 'Laravel', cargaHoraria: 40},
+						{nome: 'MySQL', cargaHoraria: 40},
+					]
+				}, // objeto				
+			}
+		}
+
+		const vm = new Vue(options) // vm = view model
+
+	</script>
+</body>
+</html>
