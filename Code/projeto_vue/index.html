@@ -4,46 +4,33 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="./vue/vue.js"></script>
-	<title>Document</title>
+	<title>Vue</title>
 </head>
 <body>
 
 	<div id="app">
-		<h1>{{ somar() }}</h1>
-		<h1>{{ subtrair() }}</h1>
-		<h1>{{ multiplicar() }}</h1>
-		<h1>{{ dividir() }}</h1>
+		<a v-bind:href="site">Site</a>
+		<p v-bind:class="cor">Entendendo a diretiva v-bind</p>
+    <input type="text" v-bind:placeholder="instrucaoDePreenchimento" v-bind:value="valor">
+    <input type="checkbox" v-bind:checked="check">
 	</div>
 
 	<script>
+		
 		options = {
+
 			el: '#app',
 			data: {
-				n1: 10,
-				n2: 5,
-				// Jamais definir uma chave no data com o mesmo nome de um método
-				//somar: 10 // irá retornar um erro
+				site: 'https://www.google.com.br',
+				cor: 'red',
+				instrucaoDePreenchimento: 'Preencha o campo',
+				valor: 'Valor inicial',
+				check: true,
 			},
 			methods: {
-				// Sintaxe convencional de declarar funções
-				somar: function somar() {
-					return this.n1 + this.n2;
-				},
-				// Função anônima
-				subtrair: function() {
-					return this.n1 - this.n2;
-				},
-				// Arrow function
-				// Um método arrow function não tem acesso ao this,
-				// pois ele referencia o escopo global e não da classe em que se encontra
-				multiplicar: () => {
-					return this.n1 * this.n2; // não irá funcionar devido ao contexto léxico
-				},
-				// Função com sintaxe reduzida
-				dividir() {
-					return this.n1 / this.n2;
-				},
-			},
+				
+			}
+
 		}
 
 		const vm = new Vue(options) // vm = view model
