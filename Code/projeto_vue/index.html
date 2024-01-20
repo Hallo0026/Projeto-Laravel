@@ -6,22 +6,21 @@
 	<script src="./vue/vue.js"></script>
 	<title>Vue</title>
 	<style>
-		.negrito {
-			font-weight: bold;
+		.verde {
+			background-color: green;
 		}
 
-		.red {
-			color: red;
+		.azul {
+			background-color: blue;
 		}
 	</style>
 </head>
 <body>
 
 	<div id="app">
-		<a :href="site" href="">Site</a>
-		<p :class="cor" class="negrito">Entendendo a diretiva v-bind</p>
-    <input type="text" :placeholder="instrucaoDePreenchimento" :value="valor">
-    <input type="checkbox" :checked="check">
+		<!-- @ é a sintaxe resumida do v-on: -->
+		<input type="text" @keyup="imprimirTexto()">
+		<button @click="mensagemAlerta()">Clique aqui</button>
 	</div>
 
 	<script>
@@ -29,13 +28,15 @@
 		options = {
 
 			el: '#app',
-			data: {
-				site: 'https://www.google.com.br',
-				cor: 'red',
-				instrucaoDePreenchimento: 'Preencha o campo',
-				valor: 'Valor inicial',
-				check: true,
-			},
+			data: {},
+			methods: {
+				imprimirTexto() {
+
+				},
+				mensagemAlerta() {
+					alert('Mensagem de alerta');		
+				},
+			}
 
 		}
 
