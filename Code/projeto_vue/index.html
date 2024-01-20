@@ -6,6 +6,27 @@
 	<script src="./vue/vue.js"></script>
 	<title>Vue</title>
 	<style>
+
+		body {
+			background-color: rgb(49, 48, 48);
+			color: white;
+		}
+
+		.borda {
+			border: 1px solid white;
+		}
+
+		.div-principal {
+			width: 300px;
+			height: 300px;
+		}
+
+		.div-comum {
+			width: 100px;
+			height: 100px;
+			display: inline-block;
+		}
+
 		.verde {
 			background-color: green;
 		}
@@ -13,34 +34,48 @@
 		.azul {
 			background-color: blue;
 		}
+
+		.vermelho {
+			background-color: red;
+		}
+
 	</style>
 </head>
 <body>
 
 	<div id="app">
-		<!-- @ é a sintaxe resumida do v-on: -->
-		<input type="text" @keyup="imprimirTexto()">
-		<button @click="mensagemAlerta()">Clique aqui</button>
+		<div class="borda div-principal" :class="cor">
+			Cor: {{ cor }}
+			<br>
+			Posição X do cursor: {{ posicaoX }}
+			<br>
+			Posição Y do cursor: {{ posicaoY }}
+		</div>
+		<hr>
+		<div @click="mudarCor('verde')" class="borda div-comum"></div>
+		<div @mouseover="mudarCor('azul')" @mouseout="mudarCor('vermelho')" class="borda div-comum"></div>
+		<div @mousemove="coordenadas($event)" class="borda div-comum"></div>
 	</div>
 
 	<script>
 		
-		options = {
-
-			el: '#app',
-			data: {},
+		new Vue({
+			el: "#app",
+			data: {
+				cor: '',
+				posicaoX: 0,
+				posicaoY: 0,
+			},
 			methods: {
-				imprimirTexto() {
-
+				mudarCor(c) {
+					this.cor = c;
 				},
-				mensagemAlerta() {
-					alert('Mensagem de alerta');		
-				},
-			}
-
-		}
-
-		const vm = new Vue(options) // vm = view model
+				coordenadas(e) {
+					this.posicaoX = e.clientX;
+					this.posicaoY = e.clientY;
+				}
+			}		
+		});
 
 	</script>
 </body>
