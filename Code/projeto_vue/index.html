@@ -5,14 +5,23 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="./vue/vue.js"></script>
 	<title>Vue</title>
+	<style>
+		.negrito {
+			font-weight: bold;
+		}
+
+		.red {
+			color: red;
+		}
+	</style>
 </head>
 <body>
 
 	<div id="app">
-		<a v-bind:href="site">Site</a>
-		<p v-bind:class="cor">Entendendo a diretiva v-bind</p>
-    <input type="text" v-bind:placeholder="instrucaoDePreenchimento" v-bind:value="valor">
-    <input type="checkbox" v-bind:checked="check">
+		<a :href="site" href="">Site</a>
+		<p :class="cor" class="negrito">Entendendo a diretiva v-bind</p>
+    <input type="text" :placeholder="instrucaoDePreenchimento" :value="valor">
+    <input type="checkbox" :checked="check">
 	</div>
 
 	<script>
@@ -27,9 +36,6 @@
 				valor: 'Valor inicial',
 				check: true,
 			},
-			methods: {
-				
-			}
 
 		}
 
