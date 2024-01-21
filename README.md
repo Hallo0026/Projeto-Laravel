@@ -44,7 +44,7 @@
 
 ### Controllers
 
-<img src="/representacao-mvc.png">
+<img src="img/representacao-mvc.png">
 
 ### Seeders
 
@@ -105,3 +105,17 @@
 ### Artisan Mail
 
 - php artisan make:mail {nome_classe} --markdown {view_associada_a_classe}
+
+
+# API's, WebServices e REST
+
+<img src="img/representacao-api.png">
+
+- SOAP: Notação XML.
+- REST: Notação JSON.
+
+### REST
+
+Significa "Representational State Transfer" ou "Transferência Representacional de Estado"
+
+- Comando utilizado para inicializar o projeto: composer create-project --prefer-dist laravel/laravel=8.5.9 app_locadora_carros
