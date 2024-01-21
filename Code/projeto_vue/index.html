@@ -17,30 +17,69 @@
 <body>
 
 	<div id="app">
+        <h4>Adicionar pacientes</h4>
+        <span>Nome: </span><input type="text" id="inputNome"><br>
+        <span>Idade: </span><input type="text" id="inputIdade"><br>
+        <span>Plano: </span><input type="text" id="inputPlano"><br>
+        <button @click="adicionarPaciente()">Adicionar</button>
 
-        <!-- Template pode ser usado para quando não desejamos um elementos pai encapsulando o conteúdo HTML -->
+        <hr>
 
-        <template v-if="saudacao"> <!-- Renderização condicional -->
-            <h1>Olá, mundo!</h1>
-            <p><strong>Conteúdo da tag template</strong></p>
-        </template>
+        <h4>Último paciente cadastrado</h4>
+        <p v-if="pacientes.length > 0">
+            {{ ultimoPaciente }}
+        </p>
 
-        <template v-for="n in 10">
-            <p>2 x {{ n }} = {{ 2*n }}</p>
-        </template>
+        <hr>
+
+        <h4>Pacientes do plano Ouro</h4>
+        <p v-for="p in pacientesPlanoOuro"> {{ p.plano == 'Ouro' ? p.nome: '' }} </p>
+
+        <h4>Pacientes cadastrados</h4>
+        <p v-for="p in pacientes">{{ p.nome }}</p>
 
 	</div>
 
 	<script>
 		
 		new Vue({
+
 			el: "#app",
+
 			data: {
-				saudacao: true,
+				pacientes: []
 			},
+
 			methods: {
-				
-			}		
+				adicionarPaciente() {
+
+                    this.pacientes.push({
+                        nome: inputNome.value,
+                        idade: inputIdade.value,
+                        plano: inputPlano.value,
+                    });
+
+                }
+			},
+
+			computed: {
+				ultimoPaciente() {
+
+					let key = this.pacientes.length - 1;
+					let txt = '';
+
+					txt += 'Paciente ' + this.pacientes[key].nome + ' ';
+					txt += 'Idade ' + this.pacientes[key].idade + ' ';
+					txt += 'Plano ' + this.pacientes[key].plano + ' ';
+
+					return txt.toUpperCase();
+
+				},
+				pacientesPlanoOuro() {
+					return this.pacientes.filter(p => p.plano == 'Ouro');
+				}
+			}
+			
 		});
 
 	</script>
