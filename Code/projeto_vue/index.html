@@ -17,8 +17,12 @@
 <body>
 
 	<div id="app">
-		<div v-html="elementosHTML">text</div>
-		<div v-text="elementosHTML">text</div>
+		<p v-once>Saldo inicial: {{ saldo }}</p>
+		<p>Saldo atualizado: {{ saldo }}</p>
+		<input type="text" id="valor">
+
+		<button @click="creditar()">Creditar</button>
+		<button @click="debitar()">Debitar</button>
 	</div>
 
 	<script>
@@ -26,10 +30,15 @@
 		new Vue({
 			el: "#app",
 			data: {
-				elementosHTML: '<p><b>Site</b></p><a href="https://www.google.com.br">Google</a>',
+				saldo: 1100,
 			},
 			methods: {
-				
+				creditar() {
+					this.saldo += parseFloat(valor.value);
+				},
+				debitar() {
+					this.saldo -= parseFloat(valor.value);
+				},
 			}		
 		});
 
