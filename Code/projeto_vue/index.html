@@ -17,12 +17,57 @@
 <body>
 
 	<div id="app">
-		<p v-once>Saldo inicial: {{ saldo }}</p>
-		<p>Saldo atualizado: {{ saldo }}</p>
-		<input type="text" id="valor">
 
-		<button @click="creditar()">Creditar</button>
-		<button @click="debitar()">Debitar</button>
+		<!--
+		<ul>
+			<li v-for="n in 10">{{ n }}</li>
+		</ul>
+		-->
+
+		<ul>
+			<li v-for="(curso, key) in cursos">{{ key }} - {{ curso }} </li>
+		</ul>
+		<hr>
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Curso</th>
+					<th>Descrição</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="(curso, key) in cursos2">
+					<td>{{ key }}</td>
+					<td>{{ curso.titulo }}</td>
+					<td>{{ curso.descricao }}</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<hr>
+
+		<ul>
+			<li v-for="publicacao in publicacoes" :key="publicacao.id" style="border: 1px solid; margin-bottom: 10px;">
+				<div>
+					{{ publicacao.publicacao }}
+					<hr>
+					<input type="text">
+				</div>
+			</li>
+		</ul>
+		<button @click="misturarArray()">Misturar publicações</button>
+
+		<hr>
+
+		<ul>
+			<li v-for="c in comentarios">{{ c.id }} - {{ c.comentario }}</li>
+		</ul>
+		<button @click="adicionarElemento()">Adicionar</button>
+		<button @click="modificarElemento()">Atualizar</button>
+		<button @click="removerElemento()">Remover</button>
+
+
 	</div>
 
 	<script>
@@ -30,15 +75,50 @@
 		new Vue({
 			el: "#app",
 			data: {
-				saldo: 1100,
+				cursos: ['PHP', 'JavaScript', 'Vue', 'Laravel', 'React', 'Angular', 'MySQL'],
+				cursos2: {
+					1000: {
+						titulo: 'Laravel', 
+						descricao: 'Domine o framework PHP mais poderoso!' 
+					},
+					1001: {
+						titulo: 'Vue',
+						descricao: 'Aprenda o framework JavaScript mais incrível!'
+					},
+				},
+				publicacoes: [
+					{id: 1, publicacao: 'Curso de Vue.js'},
+					{id: 2, publicacao: 'Novo curso disponível'},
+					{id: 3, publicacao: 'Em breve novidades!'},
+				],
+				comentarios: [
+					{id: 1, comentario: 'Comentário 1'},
+					{id: 2, comentario: 'Comentário 2'},
+					{id: 3, comentario: 'Comentário 3'},
+				]
 			},
 			methods: {
-				creditar() {
-					this.saldo += parseFloat(valor.value);
+				misturarArray() {
+
+					let misturado = [];
+					misturado[0] = this.publicacoes[2];
+					misturado[1] = this.publicacoes[0];
+					misturado[2] = this.publicacoes[1];
+
+					this.publicacoes = misturado;
+
 				},
-				debitar() {
-					this.saldo -= parseFloat(valor.value);
+				adicionarElemento() {
+					//this.comentarios[3] = {id: 4, comentario: 'Comentário 4'};
+					this.comentarios.push({id: 4, comentario: 'Comentário 4'});
 				},
+				removerElemento() {
+					this.comentarios.pop();
+				},
+				modificarElemento() {
+					//this.comentarios[0].comentario = 'Comentário 1 modificado';
+					this.$set(this.comentarios, 0, {id: 1, comentario: 'Comentário 1 modificado'});
+				}
 			}		
 		});
 
