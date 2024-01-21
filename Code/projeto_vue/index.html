@@ -21,6 +21,47 @@
 		<br><br>
 		<!--<input type="text" :value="paciente" @keyup="setPaciente($event)">-->
 		<input type="text" v-model="paciente">
+
+		<hr>
+
+		<select v-model="plano">
+			<option value="" disabled>Selecione um plano</option>
+			<option value="1">Básico 1</option>
+			<option value="2">Básico 2</option>
+			<option value="3">Master</option>
+		</select>
+
+		<br><br>
+
+		{{ plano }}
+
+		<hr>
+
+		<input type="checkbox" value="100" v-model="doencas">Asma
+		<input type="checkbox" value="101" v-model="doencas">Diabetes
+		<input type="checkbox" value="102" v-model="doencas">Rinite
+		<br><br>
+		{{ doencas }}
+
+		<hr>
+
+		<textarea v-model="diagnostico">
+
+		</textarea>
+
+		<br><br>
+		
+		{{ diagnostico  }}
+
+		<hr>
+
+		<input type="radio" id="sexo" value="f" v-model="sexo"> Feminino
+		<input type="radio" id="sexo" value="m" v-model="sexo"> Masculino
+
+		<br><br>
+
+		{{ sexo }}
+
 	</div>
 
 	<script>
@@ -31,6 +72,10 @@
 
 			data: {
 				paciente: 'João da Silva',
+				sexo: '',
+				plano: '',
+				doencas: [],
+				diagnostico: ''
 			},
 
 			methods: {
