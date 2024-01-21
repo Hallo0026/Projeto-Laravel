@@ -12,7 +12,6 @@ class MarcaController extends Controller
      */
     public function index()
     {
-        // método index é responsável por retornar todos os registros de determinado tipo
         return Marca::all();
     }
 
@@ -30,7 +29,6 @@ class MarcaController extends Controller
      */
     public function show(Marca $marca)
     {
-        // método show é responsável por retornar um registro específico
         return $marca;
     }
 
@@ -48,6 +46,7 @@ class MarcaController extends Controller
      */
     public function destroy(Marca $marca)
     {
-        //
+        $marca->delete();
+        return ['msg' => 'A marca foi removida com sucesso.'];
     }
 }
