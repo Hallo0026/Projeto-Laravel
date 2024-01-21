@@ -16,6 +16,8 @@
 - php artisan view:clear                # Limpa as views compiladas no cache.
 - php artisan make:model                # Cria um model, caso ele tenha como objetivo salvar dados no banco, acrescentar o comando '-m' para criar 
                                            uma migration (sempre criar models com o nome no singualar).
+- php artisan make:model -mcr {nome}	# Cria um Model, um Controller e uma Migration para o recurso especificado.
+- php artisan make:model -all {nome}	# Cria todos os recursos associados à esse model.
 
 
 ### Migrations
