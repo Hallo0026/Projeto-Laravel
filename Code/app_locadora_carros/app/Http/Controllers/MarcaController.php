@@ -21,7 +21,6 @@ class MarcaController extends Controller
     {
         $marcas = $this->marca->all();
         return $marcas;
-        //return Marca::all();
     }
 
     /**
@@ -30,8 +29,23 @@ class MarcaController extends Controller
     public function store(Request $request)
     {
         //$marca = Marca::create($request->all());
+
+        $regras = [
+            'nome' => 'required|unique:marcas|min:3|max:40',
+            'imagem' => 'required'
+        ];
+
+        $feedback = [
+            'required' => 'O campo :attribute é obrigatório.',
+            'nome.unique' => 'O nome da marca já existe.',
+            'nome.min' => 'O nome deve ter no mínimo 3 caracteres.',
+            'nome.max' => 'O nome deve ter no máximo 10 caracteres.'
+        ];
+
+        $request->validate($regras, $feedback); // Por padrão o validate retorna para a página anterior, para alterar isso, o cliente definir o header da requisão Accept como application/json, desta forma será retornado um json com os erros.
+
         $marca = $this->marca->create($request->all());
-        return $marca;
+        return response()->json($marca, 201);
     }
 
     /**
@@ -40,6 +54,12 @@ class MarcaController extends Controller
     public function show($id)
     {
         $marca = $this->marca->find($id);
+
+        if($marca === null) {
+          //return ['erro' => 'Recurso pesquisado nao existe.'];
+          return response()->json(['erro' => 'Recurso pesquisado nao existe.'], 404);
+        }
+
         return $marca;
     }
 
@@ -48,8 +68,13 @@ class MarcaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //$marca->update($request->all());
         $marca = $this->marca->find($id);
+
+        if($marca === null) {
+          //return ['erro' => 'Impossivel realizar a atualizacao. O recurso solicitado nao existe.'];
+            return response()->json(['erro' => 'Impossivel realizar a atualizacao. O recurso solicitado nao existe.'], 404);
+        }
+
         $marca->update($request->all());
         return $marca;
     }
@@ -59,9 +84,15 @@ class MarcaController extends Controller
      */
     public function destroy($id)
     {
-        //$marca->delete();
         $marca = $this->marca->find($id);
+
+        if($marca === null) {
+          //return ['erro' => 'Impossivel realizar a exclusao. O recurso solicitado nao existe.'];
+            return response()->json(['erro' => 'Impossivel realizar a exclusao. O recurso solicitado nao existe.'], 404);
+        }
+
         $marca->delete();
         return ['msg' => 'A marca foi removida com sucesso.'];
     }
+
 }
