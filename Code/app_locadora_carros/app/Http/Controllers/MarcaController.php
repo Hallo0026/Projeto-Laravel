@@ -30,19 +30,7 @@ class MarcaController extends Controller
     {
         //$marca = Marca::create($request->all());
 
-        $regras = [
-            'nome' => 'required|unique:marcas|min:3|max:40',
-            'imagem' => 'required'
-        ];
-
-        $feedback = [
-            'required' => 'O campo :attribute é obrigatório.',
-            'nome.unique' => 'O nome da marca já existe.',
-            'nome.min' => 'O nome deve ter no mínimo 3 caracteres.',
-            'nome.max' => 'O nome deve ter no máximo 10 caracteres.'
-        ];
-
-        $request->validate($regras, $feedback); // Por padrão o validate retorna para a página anterior, para alterar isso, o cliente definir o header da requisão Accept como application/json, desta forma será retornado um json com os erros.
+        $request->validate($this->marca->rules(), $this->marca->feedback()); // Por padrão o validate retorna para a página anterior, para alterar isso, o cliente definir o header da requisão Accept como application/json, desta forma será retornado um json com os erros.
 
         $marca = $this->marca->create($request->all());
         return response()->json($marca, 201);
@@ -74,6 +62,8 @@ class MarcaController extends Controller
           //return ['erro' => 'Impossivel realizar a atualizacao. O recurso solicitado nao existe.'];
             return response()->json(['erro' => 'Impossivel realizar a atualizacao. O recurso solicitado nao existe.'], 404);
         }
+
+        $request->validate($this->marca->rules(), $this->marca->feedback());
 
         $marca->update($request->all());
         return $marca;
