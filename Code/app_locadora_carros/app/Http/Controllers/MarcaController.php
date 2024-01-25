@@ -59,11 +59,10 @@ class MarcaController extends Controller
         $marca = $this->marca->find($id);
 
         if($marca === null) {
-          //return ['erro' => 'Impossivel realizar a atualizacao. O recurso solicitado nao existe.'];
             return response()->json(['erro' => 'Impossivel realizar a atualizacao. O recurso solicitado nao existe.'], 404);
         }
 
-        $request->validate($this->marca->rules(), $this->marca->feedback());
+        $request->validate($marca->rules(), $marca->feedback());
 
         $marca->update($request->all());
         return $marca;
