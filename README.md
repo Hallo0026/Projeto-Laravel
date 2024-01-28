@@ -121,3 +121,4 @@
 Significa "Representational State Transfer" ou "Transferência Representacional de Estado"
 
 - Comando utilizado para inicializar o projeto: composer create-project --prefer-dist laravel/laravel=8.5.9 app_locadora_carros
+
