@@ -14,6 +14,7 @@ class MarcaController extends Controller
         $this->marca = $marca;
     }
 
+
     /**
      * Display a listing of the resource.
      */
@@ -23,18 +24,31 @@ class MarcaController extends Controller
         return $marcas;
     }
 
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //$marca = Marca::create($request->all());
-
         $request->validate($this->marca->rules(), $this->marca->feedback()); // Por padrão o validate retorna para a página anterior, para alterar isso, o cliente definir o header da requisão Accept como application/json, desta forma será retornado um json com os erros.
+        $imagem = $request->file('imagem');
 
-        $marca = $this->marca->create($request->all());
-        return response()->json($marca, 201);
+        /*
+         * 1º parametro: pasta onde será salvo a imagem
+         * 2º parametro: disco onde será salvo a imagem
+         */
+        $imagem_urn = $imagem->store('imagens', 'public');
+
+        //dd($request->file('imagem'));
+
+        $marca = $this->marca->create([
+            'nome' => $request->nome,
+            'imagem' => $imagem_urn
+        ]);
+
+        return response()->json($this->marca, 201);
     }
+
 
     /**
      * Display the specified resource.
@@ -50,6 +64,7 @@ class MarcaController extends Controller
 
         return $marca;
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -86,6 +101,7 @@ class MarcaController extends Controller
 
     }
 
+
     /**
      * Remove the specified resource from storage.
      */
@@ -101,5 +117,6 @@ class MarcaController extends Controller
         $marca->delete();
         return ['msg' => 'A marca foi removida com sucesso.'];
     }
+
 
 }
