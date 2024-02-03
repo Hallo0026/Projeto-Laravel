@@ -18,6 +18,7 @@
                                            uma migration (sempre criar models com o nome no singualar).
 - php artisan make:model -mcr {nome}	# Cria um Model, um Controller e uma Migration para o recurso especificado.
 - php artisan make:model -all {nome}	# Cria todos os recursos associados à esse model.
+- php artisan storage:link 				# Cria um caminho simbólico para o diretório storage, para que os arquivos possam ser acessados publicamente
 
 
 ### Migrations
