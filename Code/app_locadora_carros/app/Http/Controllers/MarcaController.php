@@ -114,10 +114,18 @@ class MarcaController extends Controller
 
         //dd($request->file('imagem'));
 
-        $marca->update([
+        $marca->fill($request->all());
+        $marca->imagem = $imagem_urn;
+
+        /*$marca->update([
             'nome' => $request->nome,
             'imagem' => $imagem_urn
-        ]);
+        ]);*/
+        $marca->save();
+        /*
+        * O método save pode ser utilizado para criar ou atualizar um registro,
+        * dependendo se o ID do registro já existe ou não.
+        */
 
         return response()->json($marca, 200);
 
