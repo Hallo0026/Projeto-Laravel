@@ -16,11 +16,34 @@ class ModeloController extends Controller
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json($this->modelo->with('marca')->get(), 200);
+
+        $modelos = [];
+
+        if($request->has('atributos_marca')) {
+            $atributos_marca = $request->atributos_marca;
+            $modelos = $this->modelo->with('marca:id,'.$atributos_marca);
+        } else {
+            $modelos = $this->modelo->with('marca');
+        }
+
+        if($request->has('atributos')) {
+
+            $atributos = $request->atributos;
+            $modelos = $modelos->selectRaw($atributos)->get();
+            // Para recuperar a marca é necessário passar o marca_id no request dos atributos.
+
+        } else {
+            $modelos = $modelos->get();
+        }
+
+        return response()->json($modelos, 200);
+
+        //return response()->json($this->modelo->with('marca')->get(), 200);
         // all() -> Cria um objeto de consulta + get() = collection
         // get() -> Retorna uma collection porém com a possibilidade de modificar a consulta
+
     }
 
 
