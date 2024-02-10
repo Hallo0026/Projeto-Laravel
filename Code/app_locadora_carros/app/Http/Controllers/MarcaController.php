@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Marca;
+use App\Repositories\MarcaRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -19,13 +20,35 @@ class MarcaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $marcas = $this->marca->with('modelos')->get();
-        // all() -> Cria um objeto de consulta + get() = collection
-        // get() -> Retorna uma collection porém com a possibilidade de modificar a consulta
 
-        return $marcas;
+        $marcaRepository = new MarcaRepository($this->marca);
+
+        if($request->has('atributos_modelos')) {
+
+            $atributos_modelos = 'modelos:id,'.$request->atributos_modelos;
+            $atributos_modelos = $atributos_modelos;
+            $marcaRepository->selectAtributosRegistrosRelacionados($atributos_modelos);
+
+        } else {
+            //$marcas = $this->marca->with('modelos');
+            $marcaRepository->selectAtributosRegistrosRelacionados('modelos');
+        }
+
+        if($request->has('filtro')) {
+            $marcaRepository->filtro($request->filtro);
+        }
+
+        if($request->has('atributos')) {
+
+            $marcaRepository->selectAtributos($request->atributos);
+            // Para recuperar a marca é necessário passar o id no request dos atributos.
+
+        }
+
+        return response()->json($marcaRepository->getResultado(), 200);
+
     }
 
 
@@ -59,7 +82,7 @@ class MarcaController extends Controller
      */
     public function show($id)
     {
-        $marca = $this->marca->with('modelos')->find($id);
+        $marca = $this->marca->with('marcas')->find($id);
 
         if($marca === null) {
           //return ['erro' => 'Recurso pesquisado nao existe.'];
