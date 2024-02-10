@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Modelo;
+use App\Repositories\ModeloRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -19,38 +20,29 @@ class ModeloController extends Controller
     public function index(Request $request)
     {
 
-        $modelos = [];
+        $modeloRepository = new modeloRepository($this->modelo);
 
         if($request->has('atributos_marca')) {
-            $atributos_marca = $request->atributos_marca;
-            $modelos = $this->modelo->with('marca:id,'.$atributos_marca);
+
+            $atributos_marca = 'marca:id,'.$request->atributos_marca;
+            $modeloRepository->selectAtributosRegistrosRelacionados($atributos_marca);
+
         } else {
-            $modelos = $this->modelo->with('marca');
+            $modeloRepository->selectAtributosRegistrosRelacionados('marca');
         }
 
         if($request->has('filtro')) {
-            $filtros = explode(';', $request->filtro);
-            foreach($filtros as $key => $condicao) {
-                $c = explode(':', $condicao);
-                $modelos = $modelos->where($c[0], $c[1], $c[2]);
-            }
+            $modeloRepository->filtro($request->filtro);
         }
 
         if($request->has('atributos')) {
 
-            $atributos = $request->atributos;
-            $modelos = $modelos->selectRaw($atributos)->get();
-            // Para recuperar a marca é necessário passar o marca_id no request dos atributos.
+            $modeloRepository->selectAtributos($request->atributos);
+            // Para recuperar a marca é necessário passar o id no request dos atributos.
 
-        } else {
-            $modelos = $modelos->get();
         }
 
-        return response()->json($modelos, 200);
-
-        //return response()->json($this->modelo->with('marca')->get(), 200);
-        // all() -> Cria um objeto de consulta + get() = collection
-        // get() -> Retorna uma collection porém com a possibilidade de modificar a consulta
+        return response()->json($modeloRepository->getResultado(), 200);
 
     }
 
