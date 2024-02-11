@@ -123,3 +123,11 @@ Significa "Representational State Transfer" ou "Transferência Representacional 
 
 - Comando utilizado para inicializar o projeto: composer create-project --prefer-dist laravel/laravel=8.5.9 app_locadora_carros
 
+### JWT(Json Web Token)
+
+- composer require tymon/jwt-auth
+- php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
+- php artisan jwt:secret
+- Para efetuar requisições a uma rota protegida, é necessário definir o Header Authorization com o value "Bearer {token}"
+- https://jwt.io
+
