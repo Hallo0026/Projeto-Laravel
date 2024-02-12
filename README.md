@@ -131,3 +131,10 @@ Significa "Representational State Transfer" ou "Transferência Representacional 
 - Para efetuar requisições a uma rota protegida, é necessário definir o Header Authorization com o value "Bearer {token}"
 - https://jwt.io
 
+### Configuração do Vue.js no Laravel
+
+- Iniciar o projeto Laravel: composer create-project --prefer-dist laravel/laravel {nome-do-projeto}
+- Instalar o pacote UI: composer require laravel/ui
+- Gerar o esqueleto do projeto com VUE.js e autenticação web nativa (scaffold): php artisan ui vue --auth
+- Baixar as dependências do front-end: npm install
+- Produzindo o bundle do front-end: npm run dev
