@@ -49,11 +49,12 @@
 
                         <div class="form-group">
                             <input-container-component titulo="Nome da marca" id="novoNome" id-help="novoNomeHelp" texto-help="Informe o nome da marca">
-                                <input type="text" class="form-control" id="novoNome" aria-describedby="novoNome" placeholder="Nome">
+                                <input type="text" class="form-control" id="novoNome" aria-describedby="novoNomeHelp" placeholder="Nome da marca" v-model="nomeMarca">
                             </input-container-component>
 
                             <input-container-component titulo="Imagem" id="novaImagem" id-help="novaImagemHelp" texto-help="Selecione uma imagem no formato PNG">
-                                <input type="file" class="form-control" id="novaImagem" aria-describedby="novaImagem" placeholder="Selecione uma imagem">
+                                <input type="file" class="form-control" id="novaImagem" aria-describedby="novaImagem" placeholder="Selecione uma imagem" @change="carregarImagem($event)">
+                                <!-- Onchange pois não é possível utilizar v-on em inputs type file -->
                             </input-container-component>
                         </div>
 
@@ -61,7 +62,7 @@
 
                     <template v-slot:rodape>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                        <button type="button" class="btn btn-primary">Salvar</button>
+                        <button type="button" class="btn btn-primary" @click="salvar()">Salvar</button>
                     </template>
 
                 </modal-component>
@@ -73,6 +74,48 @@
 </template>
 
 <script>
+import axios from 'axios';
+
+    export default {
+
+        data() {
+            return {
+                urlBase: 'http://localhost:8000/api/v1/marca',
+                nomeMarca: '',
+                arquivoImagem: []
+            }
+        },
+
+        methods: {
+            carregarImagem(event) {
+                this.arquivoImagem = event.target.files
+            },
+
+            salvar() {
+
+                let formData = new FormData();
+                formData.append('nome', this.nomeMarca);
+                formData.append('imagem', this.arquivoImagem[0]); // índice 0 pois é esperado trabalhar com um único arquivo
+
+                let config = {
+                    headers: {
+                        'Content-type': 'multipart/form-data',
+                        'Accept': 'application/json'
+                    }
+                }
+
+                axios.post(this.urlBase, formData, config)
+                    .then(response => {
+                        console.log(response);
+                    })
+                    .catch(errors => {
+                        console.log(errors);
+                    });
+            }
+        }
+
+    }
+
 </script>
 
 <style>

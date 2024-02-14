@@ -86,7 +86,7 @@
                     .then(response => response.json()) // Convertendo a resposta para um json
                     .then(data => { // Capturando o json na variável data
                         if(data.token) {
-                            document.cookie = 'token=' + data.token + 'SameSite=Lax'; // Utilizar essa sintaxe para que os cookies sejam enviados por padrão nas requisições HTTP prevenindo ataques CSRF.
+                            document.cookie = 'token=' + data.token + '; SameSite=Lax'; // Utilizar essa sintaxe para que os cookies sejam enviados por padrão nas requisições HTTP prevenindo ataques CSRF.
                         }
 
                         // Dar sequência no envio do form de autenticação
