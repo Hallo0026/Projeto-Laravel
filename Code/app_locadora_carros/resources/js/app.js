@@ -5,8 +5,18 @@ const app = createApp({});
 
 import LoginComponent from './components/LoginComponent.vue';
 import Home from './components/Home.vue';
+import Marcas from './components/Marcas.vue';
+import Card from './components/Card.vue';
+import InputContainer from './components/InputContainer.vue';
+import Table from './components/Table.vue';
+import Modal from './components/Modal.vue';
 
 app.component('login-component', LoginComponent);
 app.component('home-component', Home);
+app.component('marcas-component', Marcas);
+app.component('card-component', Card);
+app.component('input-container-component', InputContainer);
+app.component('table-component', Table);
+app.component('modal-component', Modal);
 
 app.mount('#app');
