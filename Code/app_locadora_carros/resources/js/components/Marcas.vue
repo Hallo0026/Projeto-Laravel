@@ -45,6 +45,11 @@
                 <!-- Modal -->
                 <modal-component id="modalMarca" titulo="Adicionar marca">
 
+                    <template v-slot:alertas>
+                        <alert-component titulo="Cadastro realizado com sucesso!" tipo="success" :detalhes="transacaoDetalhes" v-if="transacaoStatus == 'adicionado'"></alert-component>
+                        <alert-component titulo="Erro ao tentar cadastrar a marca" tipo="danger" :detalhes="transacaoDetalhes" v-if="transacaoStatus == 'erro'"></alert-component>
+                    </template>
+
                     <template v-slot:conteudo>
 
                         <div class="form-group">
@@ -82,11 +87,14 @@ import axios from 'axios';
             return {
                 urlBase: 'http://localhost:8000/api/v1/marca',
                 nomeMarca: '',
-                arquivoImagem: []
+                arquivoImagem: [],
+                transacaoStatus: '',
+                transacaoDetalhes: {}
             }
         },
 
         methods: {
+
             carregarImagem(event) {
                 this.arquivoImagem = event.target.files
             },
@@ -94,6 +102,7 @@ import axios from 'axios';
             salvar() {
 
                 let formData = new FormData();
+
                 formData.append('nome', this.nomeMarca);
                 formData.append('imagem', this.arquivoImagem[0]); // índice 0 pois é esperado trabalhar com um único arquivo
 
@@ -106,14 +115,22 @@ import axios from 'axios';
 
                 axios.post(this.urlBase, formData, config)
                     .then(response => {
+                        this.transacaoStatus = 'adicionado';
+                        this.transacaoDetalhes = {
+                            mensagem: 'ID do registro: ' + response.data.id
+                        };
                         console.log(response);
                     })
                     .catch(errors => {
-                        console.log(errors);
+                        this.transacaoStatus = 'erro';
+                        this.transacaoDetalhes = {
+                            mensagem: errors.response.data.message,
+                            dados: errors.response.data.errors
+                        }
+                        //console.log(errors.response.data.message);
                     });
             }
         }
-
     }
 
 </script>
