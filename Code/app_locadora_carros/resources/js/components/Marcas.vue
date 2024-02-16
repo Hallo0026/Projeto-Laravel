@@ -32,7 +32,7 @@
                 <card-component titulo="Relação de marcas"> <!-- Card relações de marcas -->
 
                     <template v-slot:conteudo>
-                        <table-component></table-component>
+                        <table-component :dados="marcas" :titulos="['ID', 'Nome', 'Imagem']"></table-component>
                     </template>
 
                     <template v-slot:rodape>
@@ -85,15 +85,27 @@ import axios from 'axios';
 
         data() {
             return {
+                marcas: [],
                 urlBase: 'http://localhost:8000/api/v1/marca',
                 nomeMarca: '',
                 arquivoImagem: [],
                 transacaoStatus: '',
-                transacaoDetalhes: {}
+                transacaoDetalhes: {},
             }
         },
 
         methods: {
+
+            carregarLista() {
+                axios.get(this.urlBase)
+                    .then(response => {
+                        this.marcas = response.data;
+                        console.log(this.marcas);
+                    })
+                    .catch(errors => {
+                        console.log(errors);
+                    })
+            },
 
             carregarImagem(event) {
                 this.arquivoImagem = event.target.files
@@ -130,7 +142,12 @@ import axios from 'axios';
                         //console.log(errors.response.data.message);
                     });
             }
+        },
+
+        mounted() {
+            this.carregarLista();
         }
+
     }
 
 </script>
