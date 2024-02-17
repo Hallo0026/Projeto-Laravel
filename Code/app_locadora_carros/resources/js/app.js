@@ -1,7 +1,15 @@
 import './bootstrap';
 import { createApp } from 'vue';
+import { createStore } from 'vuex';
+
+const store = createStore({
+    state: {
+        item: {}
+    }
+})
 
 const app = createApp({});
+app.use(store)
 
 import LoginComponent from './components/LoginComponent.vue';
 import Home from './components/Home.vue';

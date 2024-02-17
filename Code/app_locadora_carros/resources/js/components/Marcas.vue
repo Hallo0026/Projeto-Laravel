@@ -32,10 +32,12 @@
                 <card-component titulo="Relação de marcas"> <!-- Card relações de marcas -->
 
                     <template v-slot:conteudo>
-                        <!--<table-component :dados="marcas" :titulos="['id', 'nome', 'imagem']"></table-component>-->
 
                         <table-component
                             :dados="marcas.data"
+                            :visualizar = "{ visivel: true, dataBsToggle: 'modal', dataBsTarget: '#modalMarcaVisualizar' }"
+                            :atualizar = "{ visivel: true, dataBsToggle: 'modal', dataBsTarget: '#modalMarcaAtualizar' }"
+                            :remover = "{ visivel: true, dataBsToggle: 'modal', dataBsTarget: '#modalMarcaRemover' }"
                             :titulos=" {
                                 id: {titulo: 'ID', tipo: 'texto'},
                                 nome: {titulo: 'Nome', tipo: 'texto'},
@@ -44,7 +46,6 @@
                             }"
                         ></table-component>
 
-                        <!-- Os títulos passados devem ser iguais às chaves da propriedade dados -->
                     </template>
 
                     <template v-slot:rodape>
@@ -74,7 +75,7 @@
                 </card-component> <!-- Fim card relação de marcas -->
 
 
-                <!-- Modal -->
+                <!-- Modal adicionar marca -->
                 <modal-component id="modalMarca" titulo="Adicionar marca">
 
                     <template v-slot:alertas>
@@ -100,6 +101,41 @@
                     <template v-slot:rodape>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                         <button type="button" class="btn btn-primary" @click="salvar()">Salvar</button>
+                    </template>
+
+                </modal-component>
+
+                <!-- Modal visualizar marca -->
+                <modal-component id="modalMarcaVisualizar" titulo="Visualizar marca">
+
+                    <template v-slot:alertas>
+
+                    </template>
+
+                    <template v-slot:conteudo>
+
+                        <input-container-component titulo="ID">
+                            <input type="number" class="form-control" :value="$store.state.item.id" disabled>
+                        </input-container-component>
+
+                        <input-container-component titulo="Nome">
+                            <input type="text" class="form-control" :value="$store.state.item.nome" disabled>
+                        </input-container-component>
+
+                        <input-container-component titulo="Imagem">
+                            <div>
+                                <img :src="'/storage/' + $store.state.item.imagem" v-if="$store.state.item.imagem">
+                            </div>
+                        </input-container-component>
+
+                        <input-container-component titulo="Data de criação">
+                            <input type="text" class="form-control" :value="$store.state.item.created_at" disabled>
+                        </input-container-component>
+
+                    </template>
+
+                    <template v-slot:rodape>
+                        <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>-->
                     </template>
 
                 </modal-component>

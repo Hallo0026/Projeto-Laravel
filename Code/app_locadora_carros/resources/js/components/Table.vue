@@ -4,11 +4,13 @@
         <thead>
             <tr>
                 <th scope="col" v-for="t, key in titulos" :key="key">{{ t.titulo }}</th>
+                <th v-if="visualizar.visivel || atualizar.visivel || remover.visivel"></th>
             </tr>
         </thead>
         <tbody>
 
             <tr v-for="obj, chave in dadosFiltrados" :key="chave">
+
                 <td v-for="valor, chaveValor in obj">
 
                     <span v-if="titulos[chaveValor].tipo == 'texto'"> {{ valor }}</span>
@@ -18,6 +20,17 @@
                     </span>
 
                 </td>
+
+                <td class="td-botoes" v-if="visualizar.visivel || atualizar.visivel || remover.visivel">
+
+                    <button v-if="visualizar.visivel" class="btn btn-outline-primary btn-sm" :data-bs-toggle="visualizar.dataBsToggle" :data-bs-target="visualizar.dataBsTarget" @click="setStore(obj)">Visualizar</button>
+
+                    <button v-if="atualizar.visivel" class="btn btn-outline-primary btn-sm">Atualizar</button>
+
+                    <button v-if="remover.visivel" class="btn btn-outline-danger btn-sm">Remover</button>
+
+                </td>
+
             </tr>
 
         </tbody>
@@ -27,35 +40,53 @@
 
 <script>
 
-import { format } from 'date-fns';
+    import { format } from 'date-fns';
 
-export default {
-    props: ['dados', 'titulos'],
-    computed: {
-        dadosFiltrados() {
+    export default {
+        props: ['dados', 'titulos', 'visualizar', 'atualizar', 'remover'],
+        methods: {
+            setStore(obj) {
+                $store.state.item = obj;
+            }
+        },
+        computed: {
+            dadosFiltrados() {
 
-            let dadosFiltrados = [];
-            let campos = Object.keys(this.titulos);
+                let dadosFiltrados = [];
+                let campos = Object.keys(this.titulos);
 
-            this.dados.map((item, chave) => {
-            let itemFiltrado = {};
+                this.dados.map((item, chave) => {
+                let itemFiltrado = {};
 
-            campos.forEach(campo => {
-                if (this.titulos[campo].tipo === 'data' && item[campo]) {
-                // Formatando a data usando date-fns se o tipo do campo for 'data'
-                itemFiltrado[campo] = format(new Date(item[campo]), 'dd/MM/yyyy');
-                } else {
-                itemFiltrado[campo] = item[campo];
-                }
-            });
+                campos.forEach(campo => {
+                    if (this.titulos[campo].tipo === 'data' && item[campo]) {
+                    // Formatando a data usando date-fns se o tipo do campo for 'data'
+                    itemFiltrado[campo] = format(new Date(item[campo]), 'dd/MM/yyyy');
+                    } else {
+                    itemFiltrado[campo] = item[campo];
+                    }
+                });
 
-            dadosFiltrados.push(itemFiltrado);
-            });
+                dadosFiltrados.push(itemFiltrado);
+                });
 
-            return dadosFiltrados;
+                return dadosFiltrados;
 
+            }
         }
-    }
-};
+    };
+
 </script>
+
+<style scoped>
+
+    .btn {
+        margin-right: 6px;
+    }
+
+    .td-botoes {
+        text-align: right;
+    }
+
+</style>
 
