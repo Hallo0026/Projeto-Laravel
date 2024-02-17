@@ -32,7 +32,8 @@
                 <card-component titulo="Relação de marcas"> <!-- Card relações de marcas -->
 
                     <template v-slot:conteudo>
-                        <table-component :dados="marcas" :titulos="['ID', 'Nome', 'Imagem']"></table-component>
+                        <table-component :dados="marcas" :titulos="['id', 'nome', 'imagem']"></table-component>
+                        <!-- Os títulos passados devem ser iguais às chaves da propriedade dados -->
                     </template>
 
                     <template v-slot:rodape>
