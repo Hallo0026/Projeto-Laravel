@@ -35,7 +35,7 @@
                         <!--<table-component :dados="marcas" :titulos="['id', 'nome', 'imagem']"></table-component>-->
 
                         <table-component
-                            :dados="marcas"
+                            :dados="marcas.data"
                             :titulos=" {
                                 id: {titulo: 'ID', tipo: 'texto'},
                                 nome: {titulo: 'Nome', tipo: 'texto'},
@@ -48,7 +48,27 @@
                     </template>
 
                     <template v-slot:rodape>
-                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalMarca">Adicionar</button>
+
+                        <div class="row">
+
+                            <div class="col-8">
+                                <!--<paginate-component
+                                :dados="marcas"
+                                @paginar="carregarLista"
+                                ></paginate-component>-->
+                                <paginate-component>
+                                    <li v-for="l, key in marcas.links" :key="key" :class="l.active ? 'page-item active' : 'page-item'" @click="paginacao(l)">
+                                        <a class="page-link" v-html="l.label"></a>
+                                    </li>
+                                </paginate-component>
+                            </div>
+
+                            <div class="col-4">
+                                <button type="button" class="btn btn-primary btn-adicionar btn-sm" data-bs-toggle="modal" data-bs-target="#modalMarca">Adicionar</button>
+                            </div>
+
+                        </div>
+
                     </template>
 
                 </card-component> <!-- Fim card relação de marcas -->
@@ -95,9 +115,13 @@ import axios from 'axios';
 
     export default {
 
+        mounted() {
+            this.carregarLista();
+        },
+
         data() {
             return {
-                marcas: [],
+                marcas: { data: [] },
                 urlBase: 'http://localhost:8000/api/v1/marca',
                 nomeMarca: '',
                 arquivoImagem: [],
@@ -112,7 +136,7 @@ import axios from 'axios';
                 axios.get(this.urlBase)
                     .then(response => {
                         this.marcas = response.data;
-                        console.log(this.marcas);
+                        //console.log(this.marcas);
                     })
                     .catch(errors => {
                         console.log(errors);
@@ -121,6 +145,13 @@ import axios from 'axios';
 
             carregarImagem(event) {
                 this.arquivoImagem = event.target.files
+            },
+
+            paginacao(l) {
+                if(l.url) {
+                    this.urlBase = l.url;
+                    this.carregarLista();
+                }
             },
 
             salvar() {
@@ -143,7 +174,7 @@ import axios from 'axios';
                         this.transacaoDetalhes = {
                             mensagem: 'ID do registro: ' + response.data.id
                         };
-                        console.log(response);
+                        //console.log(response);
                     })
                     .catch(errors => {
                         this.transacaoStatus = 'erro';
@@ -156,10 +187,6 @@ import axios from 'axios';
             }
         },
 
-        mounted() {
-            this.carregarLista();
-        }
-
     }
 
 </script>
@@ -169,4 +196,14 @@ import axios from 'axios';
         font-size: 1.2rem;
         font-weight: 700;
     }
+
+    ul.pagination {
+        margin-bottom: 0;
+    }
+
+    .btn-adicionar {
+        margin-top: 4px;
+    }
+
+
 </style>
