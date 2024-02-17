@@ -32,7 +32,18 @@
                 <card-component titulo="Relação de marcas"> <!-- Card relações de marcas -->
 
                     <template v-slot:conteudo>
-                        <table-component :dados="marcas" :titulos="['id', 'nome', 'imagem']"></table-component>
+                        <!--<table-component :dados="marcas" :titulos="['id', 'nome', 'imagem']"></table-component>-->
+
+                        <table-component
+                            :dados="marcas"
+                            :titulos=" {
+                                id: {titulo: 'ID', tipo: 'texto'},
+                                nome: {titulo: 'Nome', tipo: 'texto'},
+                                imagem: {titulo: 'Imagem', tipo: 'imagem'},
+                                created_at: {titulo: 'Criação', tipo: 'data'}
+                            }"
+                        ></table-component>
+
                         <!-- Os títulos passados devem ser iguais às chaves da propriedade dados -->
                     </template>
 
