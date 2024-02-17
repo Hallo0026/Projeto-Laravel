@@ -140,6 +140,34 @@
 
                 </modal-component>
 
+
+                <!-- Modal remoção de marca -->
+                <modal-component id="modalMarcaRemover" titulo="Remover marca">
+
+                    <template v-slot:alertas>
+                        <alert-component v-if="$store.state.transacao.status == 'sucesso'" tipo="success" titulo="Marca removida com sucesso." :detalhes="{mensagem: ''}"></alert-component>
+                        <alert-component v-if="$store.state.transacao.status == 'erro'" tipo="danger" titulo="Erro ao remover marca." :detalhes="{mensagem: ''}"></alert-component>
+                    </template>
+
+                    <template v-slot:conteudo v-if="$store.state.transacao.status != 'sucesso'">
+
+                        <input-container-component titulo="ID">
+                            <input type="number" class="form-control" :value="$store.state.item.id" disabled>
+                        </input-container-component>
+
+                        <input-container-component titulo="Nome">
+                            <input type="text" class="form-control" :value="$store.state.item.nome" disabled>
+                        </input-container-component>
+
+                    </template>
+
+                    <template v-slot:rodape>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button v-if="$store.state.transacao.status != 'sucesso'" type="button" class="btn btn-danger" @click="remover()">Remover</button>
+                    </template>
+
+                </modal-component>
+
             </div>
         </div>
     </div>
@@ -256,6 +284,39 @@ import axios from 'axios';
                         }
                         //console.log(errors.response.data.message);
                     });
+            },
+
+            remover() {
+
+                let confirmacao = confirm('Tem certeza que deseja remover esse registro?');
+
+                if(!confirmacao) {
+                    return false
+                }
+
+                let url = this.urlBase + '/' + this.$store.state.item.id;
+                let formData = new FormData();
+                let config = {
+                    headers: {
+                        'Accept': 'application/json',
+                    }
+                }
+
+                formData.append('_method', 'delete');
+
+                axios.post(url, formData, config)
+                    .then(response => {
+                        console.log("Registro removido com sucesso!", response);
+                        this.$store.state.transacao.status = 'sucesso';
+                        this.$store.state.transacao.mensagem = response.data.msg;
+                        this.carregarLista();
+                    })
+                    .catch(errors => {
+                        console.log("Houve um erro ao tentar remover o registro", errors);
+                        this.$store.state.transacao.status = 'erro';
+                        this.$store.state.transacao.mensagem = 'Erro ao remover registro';
+                    });
+
             }
         },
 

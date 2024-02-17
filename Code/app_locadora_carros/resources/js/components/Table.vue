@@ -27,7 +27,7 @@
 
                     <button v-if="atualizar.visivel" class="btn btn-outline-primary btn-sm">Atualizar</button>
 
-                    <button v-if="remover.visivel" class="btn btn-outline-danger btn-sm">Remover</button>
+                    <button v-if="remover.visivel" class="btn btn-outline-danger btn-sm" :data-bs-toggle="remover.dataBsToggle" :data-bs-target="remover.dataBsTarget" @click="setStore(obj)">Remover</button>
 
                 </td>
 
@@ -46,7 +46,9 @@
         props: ['dados', 'titulos', 'visualizar', 'atualizar', 'remover'],
         methods: {
             setStore(obj) {
-                $store.state.item = obj;
+                this.$store.state.transacao.status = '';
+                this.$store.state.transacao.mensagem = '';
+                this.$store.state.item = obj;
             }
         },
         computed: {
@@ -56,18 +58,20 @@
                 let campos = Object.keys(this.titulos);
 
                 this.dados.map((item, chave) => {
-                let itemFiltrado = {};
 
-                campos.forEach(campo => {
-                    if (this.titulos[campo].tipo === 'data' && item[campo]) {
-                    // Formatando a data usando date-fns se o tipo do campo for 'data'
-                    itemFiltrado[campo] = format(new Date(item[campo]), 'dd/MM/yyyy');
-                    } else {
-                    itemFiltrado[campo] = item[campo];
-                    }
-                });
+                    let itemFiltrado = {};
 
-                dadosFiltrados.push(itemFiltrado);
+                    campos.forEach(campo => {
+                        if (this.titulos[campo].tipo === 'data' && item[campo]) {
+                            // Formatando a data usando date-fns se o tipo do campo for 'data'
+                            itemFiltrado[campo] = format(new Date(item[campo]), 'dd/MM/yyyy');
+                        } else {
+                            itemFiltrado[campo] = item[campo];
+                        }
+                    });
+
+                    dadosFiltrados.push(itemFiltrado);
+
                 });
 
                 return dadosFiltrados;
