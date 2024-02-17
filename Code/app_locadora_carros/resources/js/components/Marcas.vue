@@ -9,13 +9,13 @@
                     <template v-slot:conteudo>
                         <div class="row">
                             <div class="col-4 mb-3">
-                                <input-container-component titulo="ID" id="inputId" id-help="idHelp" texto-help="Informe o ID da marca">
-                                    <input type="number" class="form-control" id="inputId" aria-describedby="idHelp" placeholder="ID">
+                                <input-container-component titulo="ID" id="inputId" id-help="idHelp" texto-help="Opcional. Informe o ID da marca">
+                                    <input v-model="busca.id" type="number" class="form-control" id="inputId" aria-describedby="idHelp" placeholder="ID">
                                 </input-container-component>
                             </div>
                             <div class="col-8 mb-3">
-                                <input-container-component titulo="Nome da marca" id="inputNome" id-help="nomeHelp" texto-help="Informe o nome da marca">
-                                    <input type="text" class="form-control" id="inputNome" aria-describedby="nomeHelp" placeholder="Nome">
+                                <input-container-component titulo="Nome da marca" id="inputNome" id-help="nomeHelp" texto-help="Opcional. Informe o nome da marca">
+                                    <input v-model="busca.nome" type="text" class="form-control" id="inputNome" aria-describedby="nomeHelp" placeholder="Nome">
                                 </input-container-component>
                             </div>
                         </div> <!-- row -->
@@ -23,7 +23,7 @@
                     </template>
 
                     <template v-slot:rodape>
-                        <button type="submit" class="btn btn-primary btn-sm">Pesquisar</button>
+                        <button @click="pesquisar()" class="btn btn-primary btn-sm">Pesquisar</button>
                     </template>
 
                 </card-component> <!-- Fim card de busca -->
@@ -122,18 +122,60 @@ import axios from 'axios';
         data() {
             return {
                 marcas: { data: [] },
+                urlFiltro: '',
+                urlPaginacao: '',
                 urlBase: 'http://localhost:8000/api/v1/marca',
                 nomeMarca: '',
                 arquivoImagem: [],
                 transacaoStatus: '',
                 transacaoDetalhes: {},
+                busca : { id: '', nome: ''}
             }
         },
 
         methods: {
 
+            paginacao(l) {
+                if(l.url) {
+                    this.urlPaginacao = l.url.split('?')[1];
+                    this.carregarLista();
+                }
+            },
+
+            pesquisar() {
+
+                let filtro = '';
+
+                for(let chave in this.busca) {
+
+                    if(this.busca[chave]) {
+
+                        if(filtro != '') {
+                            filtro += ';';
+                        }
+
+                        filtro += chave + ':like:' + this.busca[chave];
+                        console.log(filtro);
+                    }
+                }
+
+                if(filtro != '') {
+                    this.urlFiltro = '&filtro=' + filtro;
+                } else {
+                    this.urlFiltro = '';
+                }
+
+                this.carregarLista();
+
+            },
+
             carregarLista() {
-                axios.get(this.urlBase)
+
+                let url = this.urlBase + '?' + this.urlPaginacao + this.urlFiltro;
+
+                console.log(url);
+
+                axios.get(url)
                     .then(response => {
                         this.marcas = response.data;
                         //console.log(this.marcas);
@@ -147,12 +189,6 @@ import axios from 'axios';
                 this.arquivoImagem = event.target.files
             },
 
-            paginacao(l) {
-                if(l.url) {
-                    this.urlBase = l.url;
-                    this.carregarLista();
-                }
-            },
 
             salvar() {
 
