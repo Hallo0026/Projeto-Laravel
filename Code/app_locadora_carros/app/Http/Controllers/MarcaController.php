@@ -101,54 +101,38 @@ class MarcaController extends Controller
         $marca = $this->marca->find($id);
 
         if($marca === null) {
-            return response()->json(['erro' => 'Impossivel realizar a atualizacao. O recurso solicitado nao existe.'], 404);
+            return response()->json(['erro' => 'Impossível realizar a atualização. O recurso solicitado não existe'], 404);
         }
 
-
         if($request->method() === 'PATCH') {
-            return ['teste' => 'Verbo PATCH'];
 
             $regrasDinamicas = array();
 
+            //percorrendo todas as regras definidas no Model
             foreach($marca->rules() as $input => $regra) {
+
+                //coletar apenas as regras aplicáveis aos parâmetros parciais da requisição PATCH
                 if(array_key_exists($input, $request->all())) {
                     $regrasDinamicas[$input] = $regra;
                 }
             }
 
-            $request->validate($marca->rules(), $marca->feedback());
+            $request->validate($regrasDinamicas, $marca->feedback());
 
         } else {
             $request->validate($marca->rules(), $marca->feedback());
         }
 
-        // Remove o arquivo antigo caso um novo arquivo tenha sido enviado no request
+        $marca->fill($request->all());
+
         if($request->file('imagem')) {
             Storage::disk('public')->delete($marca->imagem);
+            $imagem = $request->file('imagem');
+            $imagem_urn = $imagem->store('imagens', 'public');
+            $marca->imagem = $imagem_urn;
         }
 
-        $imagem = $request->file('imagem');
-
-        /*
-         * 1º parametro: pasta onde será salvo a imagem
-         * 2º parametro: disco onde será salvo a imagem
-         */
-        $imagem_urn = $imagem->store('imagens', 'public');
-
-        //dd($request->file('imagem'));
-
-        $marca->fill($request->all());
-        $marca->imagem = $imagem_urn;
-
-        /*$marca->update([
-            'nome' => $request->nome,
-            'imagem' => $imagem_urn
-        ]);*/
         $marca->save();
-        /*
-        * O método save pode ser utilizado para criar ou atualizar um registro,
-        * dependendo se o ID do registro já existe ou não.
-        */
 
         return response()->json($marca, 200);
 

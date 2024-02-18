@@ -25,7 +25,7 @@
 
                     <button v-if="visualizar.visivel" class="btn btn-outline-primary btn-sm" :data-bs-toggle="visualizar.dataBsToggle" :data-bs-target="visualizar.dataBsTarget" @click="setStore(obj)">Visualizar</button>
 
-                    <button v-if="atualizar.visivel" class="btn btn-outline-primary btn-sm">Atualizar</button>
+                    <button v-if="atualizar.visivel" class="btn btn-outline-primary btn-sm" :data-bs-toggle="atualizar.dataBsToggle" :data-bs-target="atualizar.dataBsTarget" @click="setStore(obj)">Atualizar</button>
 
                     <button v-if="remover.visivel" class="btn btn-outline-danger btn-sm" :data-bs-toggle="remover.dataBsToggle" :data-bs-target="remover.dataBsTarget" @click="setStore(obj)">Remover</button>
 
@@ -53,30 +53,26 @@
         },
         computed: {
             dadosFiltrados() {
+    let dadosFiltrados = [];
+    let campos = Object.keys(this.titulos);
 
-                let dadosFiltrados = [];
-                let campos = Object.keys(this.titulos);
+    this.dados.map(item => {
+        let itemFiltrado = {};
 
-                this.dados.map((item, chave) => {
-
-                    let itemFiltrado = {};
-
-                    campos.forEach(campo => {
-                        if (this.titulos[campo].tipo === 'data' && item[campo]) {
-                            // Formatando a data usando date-fns se o tipo do campo for 'data'
-                            itemFiltrado[campo] = format(new Date(item[campo]), 'dd/MM/yyyy');
-                        } else {
-                            itemFiltrado[campo] = item[campo];
-                        }
-                    });
-
-                    dadosFiltrados.push(itemFiltrado);
-
-                });
-
-                return dadosFiltrados;
-
+        campos.forEach(campo => {
+            if (this.titulos[campo].tipo === 'data' && item[campo]) {
+                // Formatando a data usando date-fns se o tipo do campo for 'data'
+                itemFiltrado[campo] = format(new Date(item[campo]), 'dd/MM/yyyy HH:mm:ss');
+            } else {
+                itemFiltrado[campo] = item[campo];
             }
+        });
+
+        dadosFiltrados.push(itemFiltrado);
+    });
+
+    return dadosFiltrados;
+}
         }
     };
 

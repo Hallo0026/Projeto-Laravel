@@ -141,6 +141,37 @@
                 </modal-component>
 
 
+                <!-- Modal atualização marca -->
+                <modal-component id="modalMarcaAtualizar" titulo="Atualizar marca">
+
+                <template v-slot:alertas>
+                    <alert-component v-if="$store.state.transacao.status == 'sucesso'" tipo="success" titulo="Marca atualizada com sucesso." :detalhes="{mensagem: ''}"></alert-component>
+                    <alert-component v-if="$store.state.transacao.status == 'erro'" tipo="danger" titulo="Erro ao atualizar marca." :detalhes="{mensagem: ''}"></alert-component>
+                </template>
+
+                <template v-slot:conteudo>
+
+                    <div class="form-group">
+                        <input-container-component titulo="Nome da marca" id="atualizarNome" id-help="atualizarNomeHelp" texto-help="Informe o nome da marca">
+                            <input type="text" class="form-control" id="atualizarNome" aria-describedby="atualizarNomeHelp" placeholder="Nome da marca" v-model="$store.state.item.nome">
+                        </input-container-component>
+
+                        <input-container-component titulo="Imagem" id="atualizarImagem" id-help="atualizarImagemHelp" texto-help="Selecione uma imagem no formato PNG">
+                            <input type="file" class="form-control" id="atualizarImagem" aria-describedby="atualizarImagemHelp" placeholder="Selecione uma imagem" @change="carregarImagem($event)">
+                            <!-- Onchange pois não é possível utilizar v-on em inputs type file -->
+                        </input-container-component>
+                    </div>
+
+                </template>
+
+                <template v-slot:rodape>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary" @click="atualizar()">Atualizar</button>
+                </template>
+
+                </modal-component>
+
+
                 <!-- Modal remoção de marca -->
                 <modal-component id="modalMarcaRemover" titulo="Remover marca">
 
@@ -286,6 +317,43 @@ import axios from 'axios';
                     });
             },
 
+            atualizar() {
+
+                let url = this.urlBase + '/' + this.$store.state.item.id;
+                let formData = new FormData();
+                let config = {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        'Accept': 'application/json'
+                    }
+                };
+
+                formData.append('_method', 'PATCH');
+                formData.append('nome', this.$store.state.item.nome);
+
+                if(this.arquivoImagem[0]) {
+                    formData.append('imagem', this.arquivoImagem[0]);
+                }
+
+                axios.post(url, formData, config)
+                    .then(response => {
+                        console.log('Marca atualizada com sucesso:', response);
+                        atualizarImagem.value = '';
+                        this.$store.state.transacao.status = 'sucesso';
+                        this.$store.state.transacao.mensagem = 'Registro de marca atualizado com sucesso!';
+                        this.carregarLista();
+                    })
+                    .catch(errors => {
+                        if (errors.response) {
+                            console.log('Erro ao tentar atualizar marca. Status:', errors.response.status);
+                            console.log('Detalhes do erro:', error.response.data);
+                            this.$store.state.transacao.status = errors.response.data.message;
+                            this.$store.state.transacao.mensagem = errors.response.data.errors;
+                        }
+                    });
+
+            },
+
             remover() {
 
                 let confirmacao = confirm('Tem certeza que deseja remover esse registro?');
@@ -325,6 +393,7 @@ import axios from 'axios';
 </script>
 
 <style>
+
     .card-header {
         font-size: 1.2rem;
         font-weight: 700;
@@ -337,6 +406,5 @@ import axios from 'axios';
     .btn-adicionar {
         margin-top: 4px;
     }
-
 
 </style>
