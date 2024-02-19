@@ -206,7 +206,8 @@
 </template>
 
 <script>
-import axios from 'axios';
+
+    import axios from 'axios';
 
     export default {
 
@@ -295,7 +296,6 @@ import axios from 'axios';
                 let config = {
                     headers: {
                         'Content-type': 'multipart/form-data',
-                        'Accept': 'application/json'
                     }
                 }
 
@@ -324,7 +324,6 @@ import axios from 'axios';
                 let config = {
                     headers: {
                         'Content-Type': 'multipart/form-data',
-                        'Accept': 'application/json'
                     }
                 };
 
@@ -364,15 +363,10 @@ import axios from 'axios';
 
                 let url = this.urlBase + '/' + this.$store.state.item.id;
                 let formData = new FormData();
-                let config = {
-                    headers: {
-                        'Accept': 'application/json',
-                    }
-                }
 
                 formData.append('_method', 'delete');
 
-                axios.post(url, formData, config)
+                axios.post(url, formData)
                     .then(response => {
                         console.log("Registro removido com sucesso!", response);
                         this.$store.state.transacao.status = 'sucesso';

@@ -27,12 +27,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('api')->post('login', [AuthController::class, 'login']);
+Route::middleware('api')->post('refresh', [AuthController::class, 'refresh']);
 
 Route::group([
     'middleware' => 'jwt.auth',
     'prefix' => 'v1'
 ], function($router) {
-    Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::apiResource('cliente', ClienteController::class);
