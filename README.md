@@ -138,3 +138,13 @@ Significa "Representational State Transfer" ou "Transferência Representacional 
 - Gerar o esqueleto do projeto com VUE.js e autenticação web nativa (scaffold): php artisan ui vue --auth
 - Baixar as dependências do front-end: npm install
 - Produzindo o bundle do front-end: npm run dev
+
+### Debug
+
+- composer require barryvdh/laravel-debugbar=v3.6.2 --dev
+
+### Redis
+
+- composer require predis/predis
+- redis-cli # Inicializa terminal do redis
+- monitor # retorna todos os comandos processados pelo redis
