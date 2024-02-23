@@ -124,7 +124,7 @@
 
                         <input-container-component titulo="Imagem">
                             <div>
-                                <img :src="'/storage/' + $store.state.item.imagem" v-if="$store.state.item.imagem">
+                                <img :src="'/storage/' + $store.state.item.imagem" v-if="$store.state.item.imagem" width="100">
                             </div>
                         </input-container-component>
 

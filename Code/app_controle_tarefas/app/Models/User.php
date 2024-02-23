@@ -10,7 +10,6 @@ use App\Notifications\RedefinirSenhaNotification;
 use App\Notifications\VerificarEmailNotification;
 use App\Models\Tarefa;
 
-
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
