@@ -24,7 +24,6 @@ abstract class AbstractRepository
         foreach($filtros as $key => $condicao) {
             $c = explode(':', $condicao);
 
-            // Verificando se o operador é 'like' e ajustando o valor para correspondência parcial
             if ($c[1] == 'like') {
                 $valor = '%' . $c[2] . '%';
                 $this->model = $this->model->where($c[0], $c[1], $valor);
@@ -35,7 +34,6 @@ abstract class AbstractRepository
     }
 
 
-
     public function selectAtributos($atributos) {
         $this->model = $this->model->selectRaw($atributos);
     }
@@ -44,6 +42,7 @@ abstract class AbstractRepository
     public function getResultado() {
         return $this->model->get();
     }
+
 
     public function getResultadoPaginado($qtdeRegistrosPorPagina) {
         return $this->model->paginate($qtdeRegistrosPorPagina);

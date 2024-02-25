@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Cliente extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['nome', 'telefone', 'cpf'];
+
+    public function rules() {
+        return [
+            'nome' => 'required|min:3',
+            'telefone' => 'required',
+            'cpf' => 'required'
+        ];
+    }
+
 }
