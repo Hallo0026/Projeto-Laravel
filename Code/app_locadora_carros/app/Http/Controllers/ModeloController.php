@@ -6,6 +6,7 @@ use App\Models\Modelo;
 use App\Repositories\ModeloRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Marca;
 
 class ModeloController extends Controller
 {
@@ -42,7 +43,8 @@ class ModeloController extends Controller
 
         }
 
-        return response()->json($modeloRepository->getResultado(), 200);
+        //return response()->json($modeloRepository->getResultado(), 200);
+        return response()->json($modeloRepository->getResultadoPaginado(2), 200);
 
     }
 
@@ -94,58 +96,38 @@ class ModeloController extends Controller
         $modelo = $this->modelo->find($id);
 
         if($modelo === null) {
-            return response()->json(['erro' => 'Impossivel realizar a atualizacao. O recurso solicitado nao existe.'], 404);
+            return response()->json(['erro' => 'Impossível realizar a atualização. O recurso solicitado não existe'], 404);
         }
 
-
         if($request->method() === 'PATCH') {
-            return ['teste' => 'Verbo PATCH'];
 
             $regrasDinamicas = array();
 
+            //percorrendo todas as regras definidas no Model
             foreach($modelo->rules() as $input => $regra) {
+
+                //coletar apenas as regras aplicáveis aos parâmetros parciais da requisição PATCH
                 if(array_key_exists($input, $request->all())) {
                     $regrasDinamicas[$input] = $regra;
                 }
             }
 
-            $request->validate($modelo->rules());
+            $request->validate($regrasDinamicas);
 
         } else {
             $request->validate($modelo->rules());
         }
 
-        // Remove o arquivo antigo caso um novo arquivo tenha sido enviado no request
+        $modelo->fill($request->all());
+
         if($request->file('imagem')) {
             Storage::disk('public')->delete($modelo->imagem);
+            $imagem = $request->file('imagem');
+            $imagem_urn = $imagem->store('imagens', 'public');
+            $modelo->imagem = $imagem_urn;
         }
 
-        $imagem = $request->file('imagem');
-
-        /*
-         * 1º parametro: pasta onde será salvo a imagem
-         * 2º parametro: disco onde será salvo a imagem
-         */
-        $imagem_urn = $imagem->store('imagens/modelos', 'public');
-
-        //dd($request->file('imagem'));
-        $modelo->fill($request->all());
-        $modelo->imagem = $imagem_urn;
         $modelo->save();
-        /*
-        * O método save pode ser utilizado para criar ou atualizar um registro,
-        * dependendo se o ID do registro já existe ou não.
-        */
-
-        /*$modelo->update([
-            'marca_id' => $request->marca_id,
-            'nome' => $request->nome,
-            'imagem' => $imagem_urn,
-            'numero_portas' => $request->numero_portas,
-            'lugares' => $request->lugares,
-            'air_bag' => $request->air_bag,
-            'abs' => $request->abs,
-        ]);*/
 
         return response()->json($modelo, 200);
     }

@@ -19,15 +19,21 @@ abstract class AbstractRepository
 
 
     public function filtro($filtros) {
-
         $filtros = explode(';', $filtros);
 
         foreach($filtros as $key => $condicao) {
             $c = explode(':', $condicao);
-            $this->model = $this->model->where($c[0], $c[1], $c[2]);
-        }
 
+            // Verificando se o operador é 'like' e ajustando o valor para correspondência parcial
+            if ($c[1] == 'like') {
+                $valor = '%' . $c[2] . '%';
+                $this->model = $this->model->where($c[0], $c[1], $valor);
+            } else {
+                $this->model = $this->model->where($c[0], $c[1], $c[2]);
+            }
+        }
     }
+
 
 
     public function selectAtributos($atributos) {

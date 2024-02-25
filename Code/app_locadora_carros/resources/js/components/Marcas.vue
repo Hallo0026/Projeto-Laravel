@@ -94,6 +94,7 @@
                                 <input type="file" class="form-control" id="novaImagem" aria-describedby="novaImagem" placeholder="Selecione uma imagem" @change="carregarImagem($event)">
                                 <!-- Onchange pois não é possível utilizar v-on em inputs type file -->
                             </input-container-component>
+
                         </div>
 
                     </template>
@@ -208,6 +209,7 @@
 <script>
 
     import axios from 'axios';
+    import Swal from 'sweetalert2'
 
     export default {
 
@@ -274,7 +276,7 @@
                 axios.get(url)
                     .then(response => {
                         this.marcas = response.data;
-                        //console.log(this.marcas);
+                        console.log(this.marcas);
                     })
                     .catch(errors => {
                         console.log(errors);
@@ -306,6 +308,7 @@
                             mensagem: 'ID do registro: ' + response.data.id
                         };
                         //console.log(response);
+                        this.carregarLista();
                     })
                     .catch(errors => {
                         this.transacaoStatus = 'erro';
@@ -355,29 +358,47 @@
 
             remover() {
 
-                let confirmacao = confirm('Tem certeza que deseja remover esse registro?');
+                Swal.fire({
+                    title: "Tem certeza que deseja remover esse registro?",
+                    text: "Esta ação não pode ser revertida",
+                    icon: "warning",
+                    showCancelButton: true,
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Confirmar"
+                    }).then((result) => {
+                    if (result.isConfirmed) {
 
-                if(!confirmacao) {
-                    return false
-                }
+                        let url = this.urlBase + '/' + this.$store.state.item.id;
+                        let formData = new FormData();
 
-                let url = this.urlBase + '/' + this.$store.state.item.id;
-                let formData = new FormData();
+                        formData.append('_method', 'delete');
 
-                formData.append('_method', 'delete');
-
-                axios.post(url, formData)
-                    .then(response => {
-                        console.log("Registro removido com sucesso!", response);
-                        this.$store.state.transacao.status = 'sucesso';
-                        this.$store.state.transacao.mensagem = response.data.msg;
-                        this.carregarLista();
-                    })
-                    .catch(errors => {
-                        console.log("Houve um erro ao tentar remover o registro", errors);
-                        this.$store.state.transacao.status = 'erro';
-                        this.$store.state.transacao.mensagem = 'Erro ao remover registro';
-                    });
+                        axios.post(url, formData)
+                            .then(response => {
+                                console.log("Registro removido com sucesso!", response);
+                                this.$store.state.transacao.status = 'sucesso';
+                                this.$store.state.transacao.mensagem = response.data.msg;
+                                this.carregarLista();
+                                /*Swal.fire({
+                                    title: "Registro removido com sucesso",
+                                    //text: "Your file has been deleted.",
+                                    icon: "success"
+                                });*/
+                            })
+                            .catch(errors => {
+                                console.log("Houve um erro ao tentar remover o registro", errors);
+                                this.$store.state.transacao.status = 'erro';
+                                this.$store.state.transacao.mensagem = 'Erro ao remover registro';
+                                /*Swal.fire({
+                                    title: "Erro ao remover registro",
+                                    //text: "Your file has been deleted.",
+                                    icon: "error"
+                                });*/
+                            });
+                    }
+                });
 
             }
         },

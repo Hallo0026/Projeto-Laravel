@@ -15,7 +15,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 axios.interceptors.request.use(
     config => {
         config.headers.Accept = 'application/json'
-        console.log('Interceptando request antes do envio', config);
+        //console.log('Interceptando request antes do envio', config);
         return config;
     },
     error => {
@@ -28,7 +28,7 @@ axios.interceptors.request.use(
 // Interceptar responses da aplicação
 axios.interceptors.response.use(
     response => {
-        console.log('Interceptando a resposta antes da aplicação', response);
+        //console.log('Interceptando a resposta antes da aplicação', response);
         return response;
     },
     error => {

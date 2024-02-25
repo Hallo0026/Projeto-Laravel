@@ -20,8 +20,10 @@ class MarcaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request, $paginar = true)
     {
+
+        //$paginar = $request->query('paginate', true);
 
         $marcaRepository = new MarcaRepository($this->marca);
 
@@ -47,7 +49,11 @@ class MarcaController extends Controller
 
         }
 
-        return response()->json($marcaRepository->getResultadoPaginado(2), 200);
+        if($paginar === true) {
+            return response()->json($marcaRepository->getResultadoPaginado(2), 200);
+        } else {
+            return response()->json($marcaRepository->getResultado(), 200);
+        }
 
     }
 

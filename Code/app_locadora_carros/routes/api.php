@@ -38,6 +38,8 @@ Route::group([
     Route::apiResource('cliente', ClienteController::class);
     Route::apiResource('carro', CarroController::class);
     Route::apiResource('locacao', LocacaoController::class);
-    Route::apiResource('marca', MarcaController::class);
+    Route::get('marca/{paginar?}', [MarcaController::class, 'index']);
+    Route::post('marca', [MarcaController::class, 'store']);
+    Route::apiResource('marca/{$paginar?}', MarcaController::class);
     Route::apiResource('modelo', ModeloController::class);
 });

@@ -11,15 +11,22 @@
 
             <tr v-for="obj, chave in dadosFiltrados" :key="chave">
 
-                <td v-for="valor, chaveValor in obj">
+                <td v-for="(valor, chaveValor) in obj">
+                    <span v-if="chaveValor === 'marca' && titulos[chaveValor].tipo === 'texto'">{{ valor.nome }}</span>
 
-                    <span v-if="titulos[chaveValor].tipo == 'texto'"> {{ valor }}</span>
-                    <span v-if="titulos[chaveValor].tipo == 'data'"> {{ valor }}</span>
-                    <span v-if="titulos[chaveValor].tipo == 'imagem'">
+                    <span v-else-if="chaveValor === 'abs' && valor == 1">Sim</span>
+                    <span v-else-if="chaveValor === 'abs' && valor == 0">Não</span>
+
+                    <span v-else-if="chaveValor === 'air_bag' && valor == 1">Sim</span>
+                    <span v-else-if="chaveValor === 'air_bag' && valor == 0">Não</span>
+
+                    <span v-else-if="titulos[chaveValor].tipo === 'texto'">{{ valor }}</span>
+                    <span v-else-if="titulos[chaveValor].tipo === 'data'">{{ valor }}</span>
+                    <span v-else-if="titulos[chaveValor].tipo === 'imagem'">
                         <img :src="'/storage/' + valor" width="30" height="30">
                     </span>
-
                 </td>
+
 
                 <td class="td-botoes" v-if="visualizar.visivel || atualizar.visivel || remover.visivel">
 
@@ -53,26 +60,27 @@
         },
         computed: {
             dadosFiltrados() {
-    let dadosFiltrados = [];
-    let campos = Object.keys(this.titulos);
+                let dadosFiltrados = [];
+                let campos = Object.keys(this.titulos);
 
-    this.dados.map(item => {
-        let itemFiltrado = {};
+                this.dados.map(item => {
+                    let itemFiltrado = {};
 
-        campos.forEach(campo => {
-            if (this.titulos[campo].tipo === 'data' && item[campo]) {
-                // Formatando a data usando date-fns se o tipo do campo for 'data'
-                itemFiltrado[campo] = format(new Date(item[campo]), 'dd/MM/yyyy HH:mm:ss');
-            } else {
-                itemFiltrado[campo] = item[campo];
+                    campos.forEach(campo => {
+                        if (this.titulos[campo].tipo === 'data' && item[campo]) {
+                            // Formatando a data usando date-fns se o tipo do campo for 'data'
+                            //itemFiltrado[campo] = format(new Date(item[campo]), 'dd/MM/yyyy HH:mm:ss');
+                            itemFiltrado[campo] = format(new Date(item[campo]), 'dd/MM/yyyy');
+                        } else {
+                            itemFiltrado[campo] = item[campo];
+                        }
+                    });
+
+                    dadosFiltrados.push(itemFiltrado);
+                });
+
+                return dadosFiltrados;
             }
-        });
-
-        dadosFiltrados.push(itemFiltrado);
-    });
-
-    return dadosFiltrados;
-}
         }
     };
 

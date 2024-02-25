@@ -46,7 +46,7 @@
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="{{ route('marcas') }}">Marcas</a></li>
                                     <div class="dropdown-divider"></div>
-                                    <li><a class="dropdown-item" href="#">Modelos</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('modelos') }}">Modelos</a></li>
                                     <div class="dropdown-divider"></div>
                                     <li><a class="dropdown-item" href="#">Carros</a></li>
                                 </ul>
