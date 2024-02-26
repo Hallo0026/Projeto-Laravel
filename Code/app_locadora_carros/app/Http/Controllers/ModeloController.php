@@ -18,7 +18,7 @@ class ModeloController extends Controller
     }
 
 
-    public function index(Request $request)
+    public function index(Request $request, $paginar = true)
     {
 
         $modeloRepository = new modeloRepository($this->modelo);
@@ -44,7 +44,12 @@ class ModeloController extends Controller
         }
 
         //return response()->json($modeloRepository->getResultado(), 200);
-        return response()->json($modeloRepository->getResultadoPaginado(2), 200);
+
+        if($paginar === true) {
+            return response()->json($modeloRepository->getResultadoPaginado(10), 200);
+        } else {
+            return response()->json($modeloRepository->getResultado(), 200);
+        }
 
     }
 

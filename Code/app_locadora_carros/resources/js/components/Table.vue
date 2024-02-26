@@ -13,12 +13,16 @@
 
                 <td v-for="(valor, chaveValor) in obj">
                     <span v-if="chaveValor === 'marca' && titulos[chaveValor].tipo === 'texto'">{{ valor.nome }}</span>
+                    <span v-else-if="chaveValor === 'modelo' && titulos[chaveValor].tipo === 'texto'">{{ valor.nome }}</span>
 
                     <span v-else-if="chaveValor === 'abs' && valor == 1">Sim</span>
                     <span v-else-if="chaveValor === 'abs' && valor == 0">Não</span>
 
                     <span v-else-if="chaveValor === 'air_bag' && valor == 1">Sim</span>
                     <span v-else-if="chaveValor === 'air_bag' && valor == 0">Não</span>
+
+                    <span v-else-if="chaveValor === 'disponivel' && valor == 1">Sim</span>
+                    <span v-else-if="chaveValor === 'disponivel' && valor == 0">Não</span>
 
                     <span v-else-if="titulos[chaveValor].tipo === 'texto'">{{ valor }}</span>
                     <span v-else-if="titulos[chaveValor].tipo === 'data'">{{ valor }}</span>

@@ -21,7 +21,8 @@ class Carro extends Model
 
 
     public function modelo() {
-        return $this->belongsTo('App\Models\Modelo');
+        //return $this->belongsTo('App\Models\Modelo');
+        return $this->belongsTo('App\Models\Modelo')->select('id', 'nome', 'imagem', 'numero_portas', 'lugares', 'air_bag', 'abs', 'marca_id');
     }
 
 }

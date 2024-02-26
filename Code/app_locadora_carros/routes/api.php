@@ -35,11 +35,19 @@ Route::group([
 ], function($router) {
     Route::post('me', [AuthController::class, 'me']);
     Route::post('logout', [AuthController::class, 'logout']);
+
     Route::apiResource('cliente', ClienteController::class);
+
     Route::apiResource('carro', CarroController::class);
+
     Route::apiResource('locacao', LocacaoController::class);
+
     Route::get('marca/{paginar?}', [MarcaController::class, 'index']);
     Route::post('marca', [MarcaController::class, 'store']);
     Route::apiResource('marca/{$paginar?}', MarcaController::class);
+
+    Route::get('modelo/{paginar?}', [ModeloController::class, 'index']);
     Route::apiResource('modelo', ModeloController::class);
+    Route::post('modelo', [ModeloController::class, 'store']);
+    //Route::apiResource('modelo/{$paginar?}', ModeloController::class);
 });

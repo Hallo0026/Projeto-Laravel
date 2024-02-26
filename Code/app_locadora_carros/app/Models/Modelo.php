@@ -27,4 +27,10 @@ class Modelo extends Model
         // Um modelo pertence a uma marca.
         return $this->belongsTo('App\Models\Marca');
     }
+
+    public function carros() {
+        // Um modelo pode ter muitos carros.
+        //return $this->hasMany('App\Models\Carro');
+        return $this->hasMany('App\Models\Carro')->select('id', 'modelo_id', 'placa', 'disponivel', 'km');
+    }
 }
